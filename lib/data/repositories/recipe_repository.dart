@@ -22,6 +22,12 @@ class RecipeRepository {
     var data = Recipe.fromMap(Map<String, dynamic>.from(map));
     return data.copyWith(ingredients: _ir.getMany(data.ingredientesIds));
   }
+  
+  List<Recipe> getMany(List<String> keys) {
+    var box = Hive.box(name: boxName);
+    var list = box.getAll(keys).map((x) => Recipe.fromMap(Map<String, dynamic>.from(x))).toList();
+    return list.map((l) => l.copyWith(ingredients: _ir.getMany(l.ingredientesIds))).toList();
+  }
 
   Recipe create(Recipe m) {
     var mu = m.copyWith(id: Ulid().toString());

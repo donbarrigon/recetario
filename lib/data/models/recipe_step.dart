@@ -17,7 +17,9 @@ class RecipeStep {
       name: map['name'],
       image: map['image'],
       text: map['text'],
-      steps: (map['steps'] as List<Map<String, dynamic>>? ?? []).map((x) => RecipeStep.fromMap(x)).toList(),
+      steps: (map['steps'] as List? ?? [])
+        .map((x) => RecipeStep.fromMap(Map<String, dynamic>.from(x)))
+        .toList(),
     );
   }
 

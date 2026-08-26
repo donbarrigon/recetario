@@ -25,6 +25,22 @@ class MeasurementUnitRepository {
     return box.getAll(keys).map((x) => MeasurementUnit.fromMap(Map<String, dynamic>.from(x))).toList();
   }
 
+  bool symbolExists(String symbol, {String? excludeId}) {
+    final box = Hive.box(name: boxName);
+    return box.getAll(box.keys).any((x){
+      var m = Map<String, dynamic>.from(x);
+      return m['symbol'] == symbol && m['id'] != excludeId;
+    }); 
+  }
+
+  bool nameExists(String name, {String? excludeId}) {
+    final box = Hive.box(name: boxName);
+    return box.getAll(box.keys).any((x){
+      var m = Map<String, dynamic>.from(x);
+      return m['name'] == name && m['id'] != excludeId;
+    }); 
+  }
+
   MeasurementUnit create(MeasurementUnit m) {
     var mu = m.copyWith(id: Ulid().toString());
     final box = Hive.box(name: boxName);

@@ -4,7 +4,7 @@ import 'package:recetario/data/models/measurement_unit.dart';
 import 'package:recetario/data/repositories/measurement_unit_repository.dart';
 
 enum Action { show, create, update }
-class MeasurementUnitFormVM extends ChangeNotifier{
+class MeasurementUnitFormVm extends ChangeNotifier{
   Action _action;
   final _repo = MeasurementUnitRepository();
 
@@ -30,7 +30,7 @@ class MeasurementUnitFormVM extends ChangeNotifier{
   String _errorSave;
 
 // == CONSTRUCTOR ==============================================
-  MeasurementUnitFormVM({
+  MeasurementUnitFormVm({
     Action? action,
     String? id,
     int? iconId,
@@ -235,19 +235,13 @@ class MeasurementUnitFormVM extends ChangeNotifier{
     _validateGroup();
     _validateScale();
     _validateDescription();
-    return !hasErrors();
-  }
-
-  bool hasErrors() {
-    return (
-      _errorId.isNotEmpty ||
-      _errorIconId.isNotEmpty ||
-      _errorSymbol.isNotEmpty ||
-      _errorName.isNotEmpty ||
-      _errorGroup.isNotEmpty ||
-      _errorScale.isNotEmpty ||
-      _errorDescription.isNotEmpty
-    );
+    return _errorId.isEmpty && 
+      _errorIconId.isEmpty && 
+      _errorSymbol.isEmpty && 
+      _errorName.isEmpty && 
+      _errorGroup.isEmpty && 
+      _errorScale.isEmpty && 
+      _errorDescription.isEmpty;
   }
 
   // == ACTIONS ==================================================

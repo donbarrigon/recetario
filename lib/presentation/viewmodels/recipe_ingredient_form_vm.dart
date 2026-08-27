@@ -173,10 +173,10 @@ class RecipeIngredientFormVm extends ChangeNotifier {
     _validateMeasureUnit();
     _validateMeasureUnitsAvailable();
     _validateDescription();
-    return _errorId.isEmpty || 
-      _errorName.isEmpty || 
-      _errorMeasureUnit.isEmpty || 
-      _errorMeasureUnitsAvailable.isEmpty || 
+    return _errorId.isEmpty &&
+      _errorName.isEmpty &&
+      _errorMeasureUnit.isEmpty &&
+      _errorMeasureUnitsAvailable.isEmpty &&
       _errorDescription.isEmpty;
   }
 

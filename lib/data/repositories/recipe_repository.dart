@@ -29,6 +29,15 @@ class RecipeRepository {
     return list.map((l) => l.copyWith(ingredients: _ir.getMany(l.ingredientesIds))).toList();
   }
 
+  bool nameExists (String name, {String? excludeId}) {
+    name = name.toLowerCase().trim();
+    final box = Hive.box(name: boxName);
+    return box.getAll(box.keys).any((x){
+      var m = Map<String, dynamic>.from(x);
+      return m['name'] == name && m['id'] != excludeId;
+    });
+  }
+
   Recipe create(Recipe m) {
     var mu = m.copyWith(id: Ulid().toString());
     var box = Hive.box(name: boxName);

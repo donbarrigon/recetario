@@ -226,6 +226,7 @@ class MeasurementUnitFormVM extends ChangeNotifier{
     if (_description.length > 255) _errorDescription = 'La descripcion debe tener maximo 255 caracteres';
   }
 
+  /// return true if not has errors
   bool _validateAll() {
     _validateId();
     _validateIconId();
@@ -234,13 +235,25 @@ class MeasurementUnitFormVM extends ChangeNotifier{
     _validateGroup();
     _validateScale();
     _validateDescription();
-    return hasErrors();
+    return !hasErrors();
+  }
+
+  bool hasErrors() {
+    return (
+      _errorId.isNotEmpty ||
+      _errorIconId.isNotEmpty ||
+      _errorSymbol.isNotEmpty ||
+      _errorName.isNotEmpty ||
+      _errorGroup.isNotEmpty ||
+      _errorScale.isNotEmpty ||
+      _errorDescription.isNotEmpty
+    );
   }
 
   // == ACTIONS ==================================================
 
   void save() {
-    if (_validateAll()) {
+    if (!_validateAll()) {
       _errorSave = 'Verifique los campos en rojo';
       notifyListeners();
       return;
@@ -278,16 +291,5 @@ class MeasurementUnitFormVM extends ChangeNotifier{
     }
     
     notifyListeners();
-  }
-
-  bool hasErrors() {
-    return
-      _errorId.isNotEmpty ||
-      _errorIconId.isNotEmpty ||
-      _errorSymbol.isNotEmpty ||
-      _errorName.isNotEmpty ||
-      _errorGroup.isNotEmpty ||
-      _errorScale.isNotEmpty ||
-      _errorDescription.isNotEmpty;
   }
 }

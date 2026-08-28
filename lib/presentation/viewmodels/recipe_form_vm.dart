@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:recetario/data/models/recipe_ingredient.dart';
 import 'package:recetario/data/models/recipe_step.dart';
+import 'package:recetario/data/models/recipe.dart';
 import 'package:recetario/data/repositories/recipe_ingredient_repository.dart';
 import 'package:recetario/data/repositories/recipe_repository.dart';
 
@@ -10,6 +11,7 @@ class RecipeFormVm extends ChangeNotifier {
 
   Action _action;
   final RecipeRepository _repo = RecipeRepository();
+  final RecipeIngredientRepository _repoIngredient = RecipeIngredientRepository();
 
   String _id;
   String _name;
@@ -172,9 +174,8 @@ class RecipeFormVm extends ChangeNotifier {
       return;
     }
 
-    var ri = RecipeIngredientRepository();
     for (var igredient in _ingredients) {
-      if ( ri.get(igredient.id) == null) {
+      if ( _repoIngredient.get(igredient.id) == null) {
         _errorIngredients = 'No existe un ingrediente con el id: [${igredient.id}]';
         return;
       }
@@ -188,7 +189,36 @@ class RecipeFormVm extends ChangeNotifier {
       return;
     }
 
-    // TODO: validar los campos del step y hacer recursiva la revicion de los sub steps
+    for (int i = 0; i < _steps.length; i++) {
+      _validateStep(_steps[i], '${i + 1}');
+    }
+  }
+
+  void _validateStep(RecipeStep step, String idx) {
+    if (step.name.isEmpty) {
+      _errorSteps = 'El paso $idx debe tener un nombre';
+      return;
+    }
+
+    if (step.name.length > 100) {
+      _errorSteps = 'El paso $idx debe tener maximo 100 caracteres';
+      return;
+    }
+
+    if (step.text.isEmpty) {
+      _errorSteps = 'El paso $idx debe tener una descripcion';
+      return;
+    }
+
+    if (step.text.length > 255) {
+      _errorSteps = 'El paso $idx debe tener maximo 255 caracteres';
+      return;
+    }
+
+    for (int i = 0; i < step.steps.length; i++) {
+      _validateStep(step.steps[i], '$idx.${i + 1}');
+      if (_errorSteps.isNotEmpty) return;
+    }
   }
 
   void _validateTips() {
@@ -225,7 +255,35 @@ class RecipeFormVm extends ChangeNotifier {
       return;
     }
 
-    //TODO: terminarla
+    if (_action == Action.show) {
+      _errorSave = 'No se puede guardar la receta';
+      notifyListeners();
+      return;
+    }
+
+    var r = Recipe(
+      id: _id,
+      name: _name.trim(),
+      description: _description.trim(),
+      ingredientesIds: _ingredients.map((x) => x.id).toList(),
+      ingredients: _ingredients,
+      steps: _steps,
+      tips: _tips
+    );
+
+    try {
+      if (_action == Action.create) {
+        r = _repo.create(r);
+        _id = r.id;
+      } else {
+        _repo.update(r);
+      }
+      _errorSave = '';
+      _action = Action.show;
+    } catch (e) {
+      _errorSave = e.toString();
+    }
+    notifyListeners();
   }
 
 }

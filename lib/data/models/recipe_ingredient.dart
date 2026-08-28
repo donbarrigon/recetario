@@ -6,7 +6,7 @@ class RecipeIngredient{
   final String measureUnitId;                         // id unidad de medida base
   final MeasurementUnit? measureUnit;                 // unidad de medida para el hasOne
   final List<String> measureUnitAvailableIds;         // ids de las unidades de medida disponibles
-  final List<MeasurementUnit>? measureUnitsAvailable; // unidades de medida disponibles para el hasMany
+  final List<MeasurementUnit>? measureUnitAvailables; // unidades de medida disponibles para el hasMany
   final String description;                           // descripcion
 
   RecipeIngredient({
@@ -15,7 +15,7 @@ class RecipeIngredient{
     required this.measureUnitId,
     this.measureUnit,
     required this.measureUnitAvailableIds,
-    this.measureUnitsAvailable,
+    this.measureUnitAvailables,
     required this.description
   });
 
@@ -26,7 +26,7 @@ class RecipeIngredient{
       measureUnitId: map['measureUnitId'],
       measureUnit: map['measureUnit'],
       measureUnitAvailableIds: List<String>.from(map['measureUnitAvailableIds']),
-      measureUnitsAvailable: (map['measureUnitsAvailable'] as List<Map<String, dynamic>>?)?.map((x) => MeasurementUnit.fromMap(x)).toList(),
+      measureUnitAvailables: (map['measureUnitAvailables'] as List<Map<String, dynamic>>?)?.map((x) => MeasurementUnit.fromMap(x)).toList(),
       description: map['description']
     );
   }
@@ -38,7 +38,7 @@ class RecipeIngredient{
       'measureUnitId': measureUnitId,
       'measureUnit': measureUnit,
       'measureUnitAvailableIds': measureUnitAvailableIds,
-      'measureUnitsAvailable': measureUnitsAvailable,
+      'measureUnitAvailables': measureUnitAvailables,
       'description': description
     };
   }
@@ -49,7 +49,7 @@ class RecipeIngredient{
     String? measureUnitId,
     MeasurementUnit? measureUnit,
     List<String>? measureUnitAvailableIds,
-    List<MeasurementUnit>? measureUnitsAvailable,
+    List<MeasurementUnit>? measureUnitAvailables,
     String? description
   }) {
     return RecipeIngredient(
@@ -58,7 +58,7 @@ class RecipeIngredient{
       measureUnitId: measureUnitId ?? this.measureUnitId,
       measureUnit: measureUnit ?? this.measureUnit,
       measureUnitAvailableIds: measureUnitAvailableIds ?? this.measureUnitAvailableIds,
-      measureUnitsAvailable: measureUnitsAvailable ?? this.measureUnitsAvailable,
+      measureUnitAvailables: measureUnitAvailables ?? this.measureUnitAvailables,
       description: description ?? this.description
     );
   }

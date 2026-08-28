@@ -218,7 +218,7 @@ class MeasurementUnitFormVm extends ChangeNotifier{
 
   void _validateScale() {
     _errorScale = '';
-    if (_scale == 0) _errorScale = 'La escala debe ser diferente a 0';
+    if (!(_scale < 0 && _scale > 0)) _errorScale = 'La escala debe ser diferente a 0';
   }
 
   void _validateDescription() {
@@ -254,7 +254,7 @@ class MeasurementUnitFormVm extends ChangeNotifier{
     }
 
     if (_action == Action.show) {
-      _errorSave = 'No se pudo guardar la unidad de medida';
+      _errorSave = 'No se puede guardar la unidad de medida';
       notifyListeners();
       return;
     }

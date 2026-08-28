@@ -16,13 +16,13 @@ class RecipeIngredientFormVm extends ChangeNotifier {
   // String _measureUnitId;                         // id unidad de medida base
   MeasurementUnit? _measureUnit;                 // unidad de medida para el hasOne
   // List<String> _measureUnitAvailableIds;         // ids de las unidades de medida disponibles
-  List<MeasurementUnit> _measureUnitsAvailable; // unidades de medida disponibles para el hasMany
+  List<MeasurementUnit> _measureUnitAvailables; // unidades de medida disponibles para el hasMany
   String _description;                           // descripcion
 
   String _errorId;
   String _errorName;
   String _errorMeasureUnit;
-  String _errorMeasureUnitsAvailable;
+  String _errormeasureUnitAvailables;
   String _errorDescription;
   String _errorSave;
 
@@ -33,7 +33,7 @@ class RecipeIngredientFormVm extends ChangeNotifier {
     String? measureUnitId,
     MeasurementUnit? measureUnit,
     // List<String>? measureUnitAvailableIds,
-    List<MeasurementUnit>? measureUnitsAvailable,
+    List<MeasurementUnit>? measureUnitAvailables,
     String? description
   }) : _action = action ?? Action.show,
        _id = id ?? '',
@@ -41,12 +41,12 @@ class RecipeIngredientFormVm extends ChangeNotifier {
       //  _measureUnitId = measureUnitId ?? '',
       //  _measureUnit = measureUnit,
       //  _measureUnitAvailableIds = measureUnitAvailableIds ?? [],
-       _measureUnitsAvailable = measureUnitsAvailable ?? [],
+       _measureUnitAvailables = measureUnitAvailables ?? [],
        _description = description ?? '',
        _errorId = '',
        _errorName = '',
        _errorMeasureUnit = '',
-       _errorMeasureUnitsAvailable = '',
+       _errormeasureUnitAvailables = '',
        _errorDescription = '',
        _errorSave = '';
 
@@ -58,12 +58,12 @@ class RecipeIngredientFormVm extends ChangeNotifier {
   // String get measureUnitId => _measureUnitId;
   MeasurementUnit? get measureUnit => _measureUnit;
   // List<String> get measureUnitAvailableIds => _measureUnitAvailableIds;
-  List<MeasurementUnit> get measureUnitsAvailable => _measureUnitsAvailable;
+  List<MeasurementUnit> get measureUnitAvailables => _measureUnitAvailables;
   String get description => _description;
   String get errorId => _errorId;
   String get errorName => _errorName;
   String get errorMeasureUnit => _errorMeasureUnit;
-  String get errorMeasureUnitAvailables => _errorMeasureUnitsAvailable;
+  String get errorMeasureUnitAvailables => _errormeasureUnitAvailables;
   String get errorDescription => _errorDescription;
   String get errorSave => _errorSave;
 
@@ -99,12 +99,12 @@ class RecipeIngredientFormVm extends ChangeNotifier {
     if ( last != _errorMeasureUnit ) notifyListeners();
   }
 
-  set measureUnitsAvailable(List<MeasurementUnit> v) {
-    if ( v == _measureUnitsAvailable ) return;
-    var last = _errorMeasureUnitsAvailable;
-    _measureUnitsAvailable = v;
-    _validateMeasureUnitsAvailable();
-    if ( last != _errorMeasureUnitsAvailable ) notifyListeners();
+  set measureUnitAvailables(List<MeasurementUnit> v) {
+    if ( v == _measureUnitAvailables ) return;
+    var last = _errormeasureUnitAvailables;
+    _measureUnitAvailables = v;
+    _validatemeasureUnitAvailables();
+    if ( last != _errormeasureUnitAvailables ) notifyListeners();
   }
 
   set description(String v) {
@@ -149,16 +149,16 @@ class RecipeIngredientFormVm extends ChangeNotifier {
     }
   }
 
-  void _validateMeasureUnitsAvailable() {
-    _errorMeasureUnitsAvailable = '';
-    if (_measureUnitsAvailable.isEmpty) {
-      _errorMeasureUnitsAvailable = 'Almenos una unidad de medida habilitada es requerida';
+  void _validatemeasureUnitAvailables() {
+    _errormeasureUnitAvailables = '';
+    if (_measureUnitAvailables.isEmpty) {
+      _errormeasureUnitAvailables = 'Almenos una unidad de medida habilitada es requerida';
       return;
     } 
     var mur = MeasurementUnitRepository();
-    for (var mu in _measureUnitsAvailable) {
+    for (var mu in _measureUnitAvailables) {
       if (mur.get(mu.id) == null) {
-        _errorMeasureUnitsAvailable = 'No existe una unidad de medida con el id: [${mu.id}]';
+        _errormeasureUnitAvailables = 'No existe una unidad de medida con el id: [${mu.id}]';
         return;
       }
     }
@@ -171,12 +171,12 @@ class RecipeIngredientFormVm extends ChangeNotifier {
     _validateId();
     _validateName();
     _validateMeasureUnit();
-    _validateMeasureUnitsAvailable();
+    _validatemeasureUnitAvailables();
     _validateDescription();
     return _errorId.isEmpty &&
       _errorName.isEmpty &&
       _errorMeasureUnit.isEmpty &&
-      _errorMeasureUnitsAvailable.isEmpty &&
+      _errormeasureUnitAvailables.isEmpty &&
       _errorDescription.isEmpty;
   }
 
@@ -200,8 +200,8 @@ class RecipeIngredientFormVm extends ChangeNotifier {
       name: _name.trim(),
       measureUnitId: _measureUnit!.id,
       measureUnit: _measureUnit!,
-      measureUnitAvailableIds: _measureUnitsAvailable.map((x) => x.id).toList(),
-      measureUnitsAvailable: _measureUnitsAvailable,
+      measureUnitAvailableIds: _measureUnitAvailables.map((x) => x.id).toList(),
+      measureUnitAvailables: _measureUnitAvailables,
       description: _description.trim()
     );
 
@@ -213,6 +213,7 @@ class RecipeIngredientFormVm extends ChangeNotifier {
         _repo.update(ri);
       }
       _errorSave = '';
+      _action = Action.show;
     } catch (e) {
       _errorSave = 'No se pudo guardar el ingrediente';
     }

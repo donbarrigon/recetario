@@ -20,7 +20,7 @@ class RecipeIngredientRepository {
     return list.map((item) {
       var m = _mur.get(item.measureUnitId);
       var lm = _mur.getMany(item.measureUnitAvailableIds);
-      return item.copyWith(measureUnit: m, measureUnitsAvailable: lm);
+      return item.copyWith(measureUnit: m, measureUnitAvailables: lm);
     }).toList();
   }
 
@@ -31,7 +31,7 @@ class RecipeIngredientRepository {
     var data = RecipeIngredient.fromMap(Map<String, dynamic>.from(map));
     var m = _mur.get(data.measureUnitId);
     var lm = _mur.getMany(data.measureUnitAvailableIds);
-    return data.copyWith(measureUnit: m, measureUnitsAvailable: lm);
+    return data.copyWith(measureUnit: m, measureUnitAvailables: lm);
   }
 
   List<RecipeIngredient> getMany(List<String> keys) {
@@ -43,7 +43,7 @@ class RecipeIngredientRepository {
     return list.map((item) {
       var m = _mur.get(item.measureUnitId);
       var lm = _mur.getMany(item.measureUnitAvailableIds);
-      return item.copyWith(measureUnit: m, measureUnitsAvailable: lm);
+      return item.copyWith(measureUnit: m, measureUnitAvailables: lm);
     }).toList();
   }
 
@@ -52,7 +52,7 @@ class RecipeIngredientRepository {
     var box = Hive.box(name: boxName);
     var map = mu.toMap();
     map.remove('measureUnit');
-    map.remove('measureUnitsAvailable');
+    map.remove('measureUnitAvailables');
     box.put(mu.id, map);
     return mu;
   }
@@ -61,7 +61,7 @@ class RecipeIngredientRepository {
     var box = Hive.box(name: boxName);
     var map = m.toMap();
     map.remove('measureUnit');
-    map.remove('measureUnitsAvailable');
+    map.remove('measureUnitAvailables');
     box.put(m.id, map);
   }
 

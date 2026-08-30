@@ -1,15 +1,15 @@
 
 import 'package:flutter/material.dart';
+import 'package:recetario/core/constants/form_action.dart';
 import 'package:recetario/data/models/recipe_ingredient.dart';
 import 'package:recetario/data/models/recipe_step.dart';
 import 'package:recetario/data/models/recipe.dart';
 import 'package:recetario/data/repositories/recipe_ingredient_repository.dart';
 import 'package:recetario/data/repositories/recipe_repository.dart';
 
-enum Action { show, create, update }
 class RecipeFormVm extends ChangeNotifier {
 
-  Action _action;
+  FormAction _action;
   final RecipeRepository _repo = RecipeRepository();
   final RecipeIngredientRepository _repoIngredient = RecipeIngredientRepository();
 
@@ -29,7 +29,7 @@ class RecipeFormVm extends ChangeNotifier {
   String _errorSave;
 
   RecipeFormVm ({
-    Action? action,
+    FormAction? action,
     String? id,
     String? name,
     String? description,
@@ -37,7 +37,7 @@ class RecipeFormVm extends ChangeNotifier {
     List<RecipeStep>? steps,
     List<String>? tips
   }):
-    _action = action ?? Action.show,
+    _action = action ?? FormAction.show,
     _id = id ?? '',
     _name = name ?? '',
     _description = description ?? '',
@@ -54,7 +54,7 @@ class RecipeFormVm extends ChangeNotifier {
 
   // == GETTERS ================================================
 
-  Action get action => _action;
+  FormAction get action => _action;
   String get id => _id;
   String get name => _name;
   String get description => _description;
@@ -71,7 +71,7 @@ class RecipeFormVm extends ChangeNotifier {
 
   // == SETTERS ================================================
 
-  set action(Action v) {
+  set action(FormAction v) {
     if (v == _action) return;
     _action = v;
     notifyListeners();
@@ -129,7 +129,7 @@ class RecipeFormVm extends ChangeNotifier {
 
   void _validateId() {
     _errorId = '';
-    if (_action == Action.update)
+    if (_action == FormAction.update)
     {
       if (_id.isEmpty) {
         _errorId = 'El id es requerido';
@@ -255,7 +255,7 @@ class RecipeFormVm extends ChangeNotifier {
       return;
     }
 
-    if (_action == Action.show) {
+    if (_action == FormAction.show) {
       _errorSave = 'No se puede guardar la receta';
       notifyListeners();
       return;
@@ -272,14 +272,14 @@ class RecipeFormVm extends ChangeNotifier {
     );
 
     try {
-      if (_action == Action.create) {
+      if (_action == FormAction.create) {
         r = _repo.create(r);
         _id = r.id;
       } else {
         _repo.update(r);
       }
       _errorSave = '';
-      _action = Action.show;
+      _action = FormAction.show;
     } catch (e) {
       _errorSave = e.toString();
     }

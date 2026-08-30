@@ -1,22 +1,22 @@
 import 'package:flutter/foundation.dart';
+import 'package:recetario/core/constants/form_action.dart';
 import 'package:recetario/core/constants/icon_option.dart';
 import 'package:recetario/data/models/measurement_unit.dart';
 import 'package:recetario/data/repositories/measurement_unit_repository.dart';
 
-enum Action { show, create, update }
-class MeasurementUnitFormVm extends ChangeNotifier{
-  Action _action;
+class MeasurementUnitFormVm extends ChangeNotifier {
+  FormAction _action;
   final _repo = MeasurementUnitRepository();
 
-  String _id;           // ULID
-  int _iconId;     // icono de flutter
-  String _symbol;       // g, ml, oz, etc
-  String _name;         // gramo, mililitro, onza etc
-  bool _isExact;        // true gramera, false ojo%
-  TypeUnit _typeUnit;   // integer, float, fraction
-  String _group;        // para agrupar
-  double _scale;        // define la escala contra la unidad base del grupo
-  String _description;  // texto de ayuda
+  String _id; // ULID
+  int _iconId; // icono de flutter
+  String _symbol; // g, ml, oz, etc
+  String _name; // gramo, mililitro, onza etc
+  bool _isExact; // true gramera, false ojo%
+  TypeUnit _typeUnit; // integer, float, fraction
+  String _group; // para agrupar
+  double _scale; // define la escala contra la unidad base del grupo
+  String _description; // texto de ayuda
 
   String _errorId;
   String _errorIconId;
@@ -29,9 +29,9 @@ class MeasurementUnitFormVm extends ChangeNotifier{
   String _errorDescription;
   String _errorSave;
 
-// == CONSTRUCTOR ==============================================
+  // == CONSTRUCTOR ==============================================
   MeasurementUnitFormVm({
-    Action? action,
+    FormAction? action,
     String? id,
     int? iconId,
     String? symbol,
@@ -40,31 +40,31 @@ class MeasurementUnitFormVm extends ChangeNotifier{
     TypeUnit? typeUnit,
     String? group,
     double? scale,
-    String? description
-  }): _action = action ?? Action.show, 
-      _id = id ?? '',
-      _iconId = iconId ?? 0,
-      _symbol = symbol ?? '',
-      _name = name ?? '',
-      _isExact = isExact ?? false,
-      _typeUnit = typeUnit ?? TypeUnit.integer,
-      _group = group ?? '',
-      _scale = scale ?? 1.0,
-      _description = description ?? '',
-      _errorId = '',
-      _errorIconId = '',
-      _errorSymbol = '',
-      _errorName = '',
-      // _errorIsExact = '',
-      // _errorTypeUnit = '',
-      _errorGroup = '',
-      _errorScale = '',
-      _errorDescription = '',
-      _errorSave = '';
+    String? description,
+  }) : _action = action ?? FormAction.show,
+       _id = id ?? '',
+       _iconId = iconId ?? 0,
+       _symbol = symbol ?? '',
+       _name = name ?? '',
+       _isExact = isExact ?? false,
+       _typeUnit = typeUnit ?? TypeUnit.integer,
+       _group = group ?? '',
+       _scale = scale ?? 1.0,
+       _description = description ?? '',
+       _errorId = '',
+       _errorIconId = '',
+       _errorSymbol = '',
+       _errorName = '',
+       // _errorIsExact = '',
+       // _errorTypeUnit = '',
+       _errorGroup = '',
+       _errorScale = '',
+       _errorDescription = '',
+       _errorSave = '';
 
-// == GETTERS ==================================================
+  // == GETTERS ==================================================
 
-  Action get action => _action;
+  FormAction get action => _action;
   String get id => _id;
   int get iconId => _iconId;
   String get symbol => _symbol;
@@ -88,6 +88,12 @@ class MeasurementUnitFormVm extends ChangeNotifier{
 
   // == SETTERS ==================================================
 
+  set action(FormAction v) {
+    if (v == _action) return;
+    _action = v;
+    notifyListeners();
+  }
+
   set id(String v) {
     if (v == _id) return;
     _id = v;
@@ -101,21 +107,21 @@ class MeasurementUnitFormVm extends ChangeNotifier{
     _validateIconId();
     notifyListeners();
   }
-  
+
   set symbol(String s) {
     if (s == _symbol) return;
     _symbol = s.toLowerCase().trim();
     _validateSymbol();
     notifyListeners();
   }
-  
+
   set name(String n) {
     if (n == _name) return;
     _name = n;
     _validateName();
     notifyListeners();
   }
-  
+
   set isExact(bool v) {
     if (v == _isExact) return;
     _isExact = v;
@@ -127,7 +133,7 @@ class MeasurementUnitFormVm extends ChangeNotifier{
     _typeUnit = v;
     notifyListeners();
   }
-  
+
   set group(String g) {
     if (g == _group) return;
     _group = g;
@@ -153,8 +159,7 @@ class MeasurementUnitFormVm extends ChangeNotifier{
 
   void _validateId() {
     _errorId = '';
-    if (_action == Action.update)
-    {
+    if (_action == FormAction.update) {
       if (_id.isEmpty) _errorId = 'El id es requerido';
       if (_repo.get(_id) == null) {
         _errorId = 'No existe una unidad de medida con el id: [$_id]';
@@ -218,7 +223,7 @@ class MeasurementUnitFormVm extends ChangeNotifier{
 
   void _validateScale() {
     _errorScale = '';
-    if (!(_scale < 0 && _scale > 0)) _errorScale = 'La escala debe ser diferente a 0';
+    if (!(_scale < 0 || _scale > 0)) _errorScale = 'La escala debe ser diferente a 0';
   }
 
   void _validateDescription() {
@@ -235,25 +240,27 @@ class MeasurementUnitFormVm extends ChangeNotifier{
     _validateGroup();
     _validateScale();
     _validateDescription();
-    return _errorId.isEmpty && 
-      _errorIconId.isEmpty && 
-      _errorSymbol.isEmpty && 
-      _errorName.isEmpty && 
-      _errorGroup.isEmpty && 
-      _errorScale.isEmpty && 
-      _errorDescription.isEmpty;
+    return _errorId.isEmpty &&
+        _errorIconId.isEmpty &&
+        _errorSymbol.isEmpty &&
+        _errorName.isEmpty &&
+        _errorGroup.isEmpty &&
+        _errorScale.isEmpty &&
+        _errorDescription.isEmpty;
   }
 
   // == ACTIONS ==================================================
 
   void save() {
-    if (!_validateAll()) {
+    _errorSave = '';
+
+    if (_validateAll()) {
       _errorSave = 'Verifique los campos en rojo';
       notifyListeners();
       return;
     }
 
-    if (_action == Action.show) {
+    if (_action == FormAction.show) {
       _errorSave = 'No se puede guardar la unidad de medida';
       notifyListeners();
       return;
@@ -268,22 +275,58 @@ class MeasurementUnitFormVm extends ChangeNotifier{
       typeUnit: _typeUnit,
       group: _group.toLowerCase().trim(),
       scale: _scale,
-      description: _description.trim()
+      description: _description.trim(),
     );
 
     try {
-      if (_action == Action.create) {
-        m =_repo.create(m);
+      if (_action == FormAction.create) {
+        m = _repo.create(m);
         _id = m.id;
       } else {
         _repo.update(m);
       }
       _errorSave = '';
-      _action = Action.show;
+      show(m);
     } catch (e) {
       _errorSave = 'Error al guardar la unidad de medida: ${e.toString()}';
     }
-    
+
     notifyListeners();
   }
+
+  void show(MeasurementUnit mu) {
+    _id = mu.id;
+    _iconId = mu.iconId;
+    _symbol = mu.symbol;
+    _name = mu.name;
+    _isExact = mu.isExact;
+    _typeUnit = mu.typeUnit;
+    _group = mu.group;
+    _scale = mu.scale;
+    _description = mu.description;
+    _action = FormAction.show;
+    notifyListeners();
+  }
+
+  // void cancel() {
+  //   _action = FormAction.show;
+  //   _id = '';
+  //   _iconId = 0;
+  //   _symbol = '';
+  //   _name = '';
+  //   _isExact = false;
+  //   _typeUnit = TypeUnit.integer;
+  //   _group = '';
+  //   _scale = 0;
+  //   _description = '';
+  //   _errorId = '';
+  //   _errorIconId = '';
+  //   _errorSymbol = '';
+  //   _errorName = '';
+  //   _errorGroup = '';
+  //   _errorScale = '';
+  //   _errorDescription = '';
+  //   _errorSave = '';
+  //   notifyListeners();
+  // }
 }

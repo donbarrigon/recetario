@@ -1,5 +1,6 @@
-
 import 'package:flutter/material.dart';
+import 'package:recetario/presentation/views/measurement_unit/form.dart';
+import 'package:recetario/core/theme/app_theme.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -8,14 +9,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Recetario',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
-        useMaterial3: true,
-      ),
-      home: const Scaffold(
-        body: Center(child: Text('App inicializada correctamente')),
-      ),
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.system,
+      home: const MeasurementUnitFormView(),
     );
   }
 }

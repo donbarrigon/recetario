@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:recetario/core/constants/form_action.dart';
 import 'package:recetario/data/models/measurement_unit.dart';
 import 'package:recetario/data/models/recipe_ingredient.dart';
 import 'package:recetario/data/repositories/measurement_unit_repository.dart';
 import 'package:recetario/data/repositories/recipe_ingredient_repository.dart';
 
-enum Action { show, create, update }
-
 class RecipeIngredientFormVm extends ChangeNotifier {
 
-  Action _action;
+  FormAction _action;
   final RecipeIngredientRepository _repo = RecipeIngredientRepository();
 
   String _id;                                    // ulid
@@ -27,7 +26,7 @@ class RecipeIngredientFormVm extends ChangeNotifier {
   String _errorSave;
 
   RecipeIngredientFormVm({
-    Action? action,
+    FormAction? action,
     String? id,
     String? name,
     String? measureUnitId,
@@ -35,7 +34,7 @@ class RecipeIngredientFormVm extends ChangeNotifier {
     // List<String>? measureUnitAvailableIds,
     List<MeasurementUnit>? measureUnitAvailables,
     String? description
-  }) : _action = action ?? Action.show,
+  }) : _action = action ?? FormAction.show,
        _id = id ?? '',
        _name = name ?? '',
       //  _measureUnitId = measureUnitId ?? '',
@@ -52,7 +51,7 @@ class RecipeIngredientFormVm extends ChangeNotifier {
 
   // == GETTERS ==================================================
 
-  Action get action => _action;
+  FormAction get action => _action;
   String get id => _id;
   String get name => _name;
   // String get measureUnitId => _measureUnitId;
@@ -69,7 +68,7 @@ class RecipeIngredientFormVm extends ChangeNotifier {
 
   // == SETTERS ==================================================
 
-  set action(Action v) {
+  set action(FormAction v) {
     if ( v == _action ) return;
     _action = v;
     notifyListeners();
@@ -118,7 +117,7 @@ class RecipeIngredientFormVm extends ChangeNotifier {
   // == VALIDATORS ===============================================
 
   void _validateId() {
-    if (_action == Action.update ){
+    if (_action == FormAction.update ){
       _repo.get(_id) == null ? _errorId = 'No existe un ingrediente con el id: [$_id]' : _errorId = '';
     }
   }
@@ -189,7 +188,7 @@ class RecipeIngredientFormVm extends ChangeNotifier {
       return;
     }
 
-    if (_action == Action.show) {
+    if (_action == FormAction.show) {
       _errorSave = 'No se puede guardar el ingrediente';
       notifyListeners();
       return;
@@ -206,14 +205,14 @@ class RecipeIngredientFormVm extends ChangeNotifier {
     );
 
     try {
-      if (_action == Action.create) {
+      if (_action == FormAction.create) {
         ri = _repo.create(ri);
         _id = ri.id;
       } else {
         _repo.update(ri);
       }
       _errorSave = '';
-      _action = Action.show;
+      _action = FormAction.show;
     } catch (e) {
       _errorSave = 'No se pudo guardar el ingrediente';
     }

@@ -1,22 +1,22 @@
-
 import 'package:flutter/material.dart';
 import 'package:recetario/core/constants/form_action.dart';
-import 'package:recetario/data/models/recipe_ingredient.dart';
+import 'package:recetario/data/models/recipe_ingredient_item.dart';
 import 'package:recetario/data/models/recipe_step.dart';
 import 'package:recetario/data/models/recipe.dart';
 import 'package:recetario/data/repositories/recipe_ingredient_repository.dart';
+import 'package:recetario/data/repositories/measurement_unit_repository.dart';
 import 'package:recetario/data/repositories/recipe_repository.dart';
 
 class RecipeFormVm extends ChangeNotifier {
-
   FormAction _action;
   final RecipeRepository _repo = RecipeRepository();
   final RecipeIngredientRepository _repoIngredient = RecipeIngredientRepository();
+  final MeasurementUnitRepository _repoMeasurementUnit = MeasurementUnitRepository();
 
   String _id;
   String _name;
   String _description;
-  List<RecipeIngredient> _ingredients;
+  List<RecipeIngredientItem> _ingredients;
   List<RecipeStep> _steps;
   List<String> _tips;
 
@@ -28,29 +28,46 @@ class RecipeFormVm extends ChangeNotifier {
   String _errorTips;
   String _errorSave;
 
-  RecipeFormVm ({
+  RecipeFormVm({
     FormAction? action,
     String? id,
     String? name,
     String? description,
-    List<RecipeIngredient>? ingredients,
+    List<RecipeIngredientItem>? ingredients,
     List<RecipeStep>? steps,
-    List<String>? tips
-  }):
-    _action = action ?? FormAction.show,
-    _id = id ?? '',
-    _name = name ?? '',
-    _description = description ?? '',
-    _ingredients = ingredients ?? [],
-    _steps = steps ?? [],
-    _tips = tips ?? [] ,
-    _errorId = '',
-    _errorName = '',
-    _errorDescription = '',
-    _errorIngredients = '',
-    _errorSteps = '',
-    _errorTips = '',
-    _errorSave = '';
+    List<String>? tips,
+  }) : _action = action ?? FormAction.show,
+       _id = id ?? '',
+       _name = name ?? '',
+       _description = description ?? '',
+       _ingredients = ingredients ?? [],
+       _steps = steps ?? [],
+       _tips = tips ?? [],
+       _errorId = '',
+       _errorName = '',
+       _errorDescription = '',
+       _errorIngredients = '',
+       _errorSteps = '',
+       _errorTips = '',
+       _errorSave = '' {
+    if (_id.isNotEmpty) _load();
+  }
+
+  // == LOAD ====================================================
+
+  void _load() {
+    var r = _repo.get(_id);
+    if (r == null) {
+      _errorId = 'No existe una receta con el id: [$_id]';
+      return;
+    }
+
+    _name = r.name;
+    _description = r.description;
+    _ingredients = r.ingredients;
+    _steps = r.steps;
+    _tips = r.tips;
+  }
 
   // == GETTERS ================================================
 
@@ -58,7 +75,7 @@ class RecipeFormVm extends ChangeNotifier {
   String get id => _id;
   String get name => _name;
   String get description => _description;
-  List<RecipeIngredient> get ingredients => _ingredients;
+  List<RecipeIngredientItem> get ingredients => _ingredients;
   List<RecipeStep> get steps => _steps;
   List<String> get tips => _tips;
   String get errorId => _errorId;
@@ -101,7 +118,7 @@ class RecipeFormVm extends ChangeNotifier {
     if (last != _errorDescription) notifyListeners();
   }
 
-  set ingredients(List<RecipeIngredient> v) {
+  set ingredients(List<RecipeIngredientItem> v) {
     if (v == _ingredients) return;
     var last = _errorIngredients;
     _ingredients = v;
@@ -125,12 +142,11 @@ class RecipeFormVm extends ChangeNotifier {
     if (last != _errorTips) notifyListeners();
   }
 
-  // == VALIDATROS =============================================
+  // == VALIDATORS ===============================================
 
   void _validateId() {
     _errorId = '';
-    if (_action == FormAction.update)
-    {
+    if (_action == FormAction.update) {
       if (_id.isEmpty) {
         _errorId = 'El id es requerido';
         return;
@@ -174,9 +190,19 @@ class RecipeFormVm extends ChangeNotifier {
       return;
     }
 
-    for (var igredient in _ingredients) {
-      if ( _repoIngredient.get(igredient.id) == null) {
-        _errorIngredients = 'No existe un ingrediente con el id: [${igredient.id}]';
+    for (var item in _ingredients) {
+      if (item.quantity <= 0) {
+        _errorIngredients = 'La cantidad debe ser mayor a 0';
+        return;
+      }
+
+      if (_repoIngredient.get(item.ingredientId) == null) {
+        _errorIngredients = 'No existe un ingrediente con el id: [${item.ingredientId}]';
+        return;
+      }
+
+      if (_repoMeasurementUnit.get(item.unitId) == null) {
+        _errorIngredients = 'No existe una unidad de medida con el id: [${item.unitId}]';
         return;
       }
     }
@@ -191,6 +217,7 @@ class RecipeFormVm extends ChangeNotifier {
 
     for (int i = 0; i < _steps.length; i++) {
       _validateStep(_steps[i], '${i + 1}');
+      if (_errorSteps.isNotEmpty) return;
     }
   }
 
@@ -238,14 +265,14 @@ class RecipeFormVm extends ChangeNotifier {
     _validateIngredients();
     _validateSteps();
     _validateTips();
-    return _errorId.isEmpty && 
-      _errorName.isEmpty && 
-      _errorDescription.isEmpty && 
-      _errorIngredients.isEmpty && 
-      _errorSteps.isEmpty && 
-      _errorTips.isEmpty;
+    return _errorId.isEmpty &&
+        _errorName.isEmpty &&
+        _errorDescription.isEmpty &&
+        _errorIngredients.isEmpty &&
+        _errorSteps.isEmpty &&
+        _errorTips.isEmpty;
   }
-  
+
   // == METHODS ================================================
 
   void save() {
@@ -265,10 +292,9 @@ class RecipeFormVm extends ChangeNotifier {
       id: _id,
       name: _name.trim(),
       description: _description.trim(),
-      ingredientesIds: _ingredients.map((x) => x.id).toList(),
       ingredients: _ingredients,
       steps: _steps,
-      tips: _tips
+      tips: _tips,
     );
 
     try {
@@ -286,4 +312,29 @@ class RecipeFormVm extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addIngredient(RecipeIngredientItem item) {
+    _ingredients = [..._ingredients, item];
+    _validateIngredients();
+    notifyListeners();
+  }
+
+  void removeIngredientAt(int index) {
+    if (index < 0 || index >= _ingredients.length) return;
+    _ingredients = List.of(_ingredients)..removeAt(index);
+    _validateIngredients();
+    notifyListeners();
+  }
+
+  void addStep(RecipeStep step) {
+    _steps = [..._steps, step];
+    _validateSteps();
+    notifyListeners();
+  }
+
+  void removeStepAt(int index) {
+    if (index < 0 || index >= _steps.length) return;
+    _steps = List.of(_steps)..removeAt(index);
+    _validateSteps();
+    notifyListeners();
+  }
 }

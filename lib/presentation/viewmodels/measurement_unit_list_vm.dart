@@ -6,25 +6,52 @@ class MeasurementUnitListVm extends ChangeNotifier {
   final MeasurementUnitRepository _repo = MeasurementUnitRepository();
   bool _isLoading;
   bool get isLoading => _isLoading;
-  List<MeasurementUnit> _units;
+  Map<String, List<MeasurementUnit>> _units;
   String _errorUnits;
+  MeasurementUnit? _selected;
 
-  MeasurementUnitListVm({List<MeasurementUnit>? units}) : _units = units ?? [], _errorUnits = '', _isLoading = false;
+  MeasurementUnitListVm({Map<String, List<MeasurementUnit>>? units})
+    : _units = units ?? {},
+      _errorUnits = '',
+      _isLoading = false,
+      _selected = null;
 
-  List<MeasurementUnit> get units => _units;
+  Map<String, List<MeasurementUnit>> get units => _units;
   String get errorUnits => _errorUnits;
+  MeasurementUnit? get selected => _selected;
+
+  void select(MeasurementUnit unit) {
+    // toca de nuevo el mismo item -> deselecciona
+    _selected = (_selected?.id == unit.id) ? null : unit;
+    notifyListeners();
+  }
+
+  void clearSelection() {
+    if (_selected == null) return;
+    _selected = null;
+    notifyListeners();
+  }
 
   void getAll() {
     _isLoading = true;
     _errorUnits = '';
+    notifyListeners();
+
+    List<MeasurementUnit> list = [];
     try {
-      _units = _repo.getAll();
+      list = _repo.getAll();
     } catch (e) {
       _errorUnits = e.toString();
     } finally {
       _isLoading = false;
     }
 
+    Map<String, List<MeasurementUnit>> map = {};
+    for (var item in list) {
+      map.putIfAbsent(item.group, () => []).add(item);
+    }
+    _units = map;
+    _selected = null; // al recargar, la selección anterior ya no aplica
     notifyListeners();
   }
 
@@ -33,7 +60,11 @@ class MeasurementUnitListVm extends ChangeNotifier {
     try {
       var wasDeleted = _repo.delete(mu);
       if (wasDeleted) {
-        _units.remove(mu);
+        _units[mu.group]?.remove(mu);
+        if (_units[mu.group]?.isEmpty ?? false) {
+          _units.remove(mu.group);
+        }
+        if (_selected?.id == mu.id) _selected = null;
       } else {
         _errorUnits = 'La unidad ya no existe';
       }

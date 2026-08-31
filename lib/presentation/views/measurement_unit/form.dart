@@ -147,7 +147,7 @@ class _IdFieldState extends State<_IdField> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, String>(
       selector: (_, vm) => vm.id,
       builder: (_, id, _) {
@@ -213,7 +213,7 @@ class _SymbolFieldState extends State<_SymbolField> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, FormAction>(
       selector: (_, vm) => vm.action,
       builder: (_, action, _) {
@@ -239,7 +239,7 @@ class _SymbolError extends StatelessWidget {
   const _SymbolError();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, String>(
       selector: (_, vm) => vm.errorSymbol,
       builder: (_, error, _) {
@@ -276,7 +276,7 @@ class _NameFieldState extends State<_NameField> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, FormAction>(
       selector: (_, vm) => vm.action,
       builder: (_, action, _) {
@@ -302,7 +302,7 @@ class _NameError extends StatelessWidget {
   const _NameError();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, String>(
       selector: (_, vm) => vm.errorName,
       builder: (_, error, _) {
@@ -339,7 +339,7 @@ class _GroupFieldState extends State<_GroupField> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, FormAction>(
       selector: (_, vm) => vm.action,
       builder: (_, action, _) {
@@ -365,7 +365,7 @@ class _GroupError extends StatelessWidget {
   const _GroupError();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, String>(
       selector: (_, vm) => vm.errorGroup,
       builder: (_, error, _) {
@@ -402,7 +402,7 @@ class _ScaleFieldState extends State<_ScaleField> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, FormAction>(
       selector: (_, vm) => vm.action,
       builder: (_, action, _) {
@@ -431,7 +431,7 @@ class _ScaleError extends StatelessWidget {
   const _ScaleError();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, String>(
       selector: (_, vm) => vm.errorScale,
       builder: (_, error, _) {
@@ -449,7 +449,7 @@ class _TypeUnitDropdown extends StatelessWidget {
   const _TypeUnitDropdown();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, TypeUnit>(
       selector: (_, vm) => vm.typeUnit,
       builder: (_, typeUnit, _) {
@@ -466,9 +466,7 @@ class _TypeUnitDropdown extends StatelessWidget {
                   items: TypeUnit.values.map((type) {
                     return DropdownMenuItem(value: type, child: Text(type.name));
                   }).toList(),
-                  onChanged: action == FormAction.show
-                      ? null
-                      : (v) => context.read<MeasurementUnitFormVm>().typeUnit = v!,
+                  onChanged: action == FormAction.show ? null : (v) => ctx.read<MeasurementUnitFormVm>().typeUnit = v!,
                   decoration: const InputDecoration(border: OutlineInputBorder()),
                 ),
               ],
@@ -487,7 +485,7 @@ class _ExactSwitch extends StatelessWidget {
   const _ExactSwitch();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, bool>(
       selector: (_, vm) => vm.isExact,
       builder: (_, isExact, _) {
@@ -500,9 +498,7 @@ class _ExactSwitch extends StatelessWidget {
                 const Text('¿Es una unidad exacta?', style: TextStyle(fontWeight: FontWeight.bold)),
                 Switch(
                   value: isExact,
-                  onChanged: action == FormAction.show
-                      ? null
-                      : (v) => context.read<MeasurementUnitFormVm>().isExact = v,
+                  onChanged: action == FormAction.show ? null : (v) => ctx.read<MeasurementUnitFormVm>().isExact = v,
                 ),
               ],
             );
@@ -539,7 +535,7 @@ class _DescriptionFieldState extends State<_DescriptionField> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, FormAction>(
       selector: (_, vm) => vm.action,
       builder: (_, action, _) {
@@ -569,7 +565,7 @@ class _DescriptionError extends StatelessWidget {
   const _DescriptionError();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, String>(
       selector: (_, vm) => vm.errorDescription,
       builder: (_, error, _) {
@@ -587,7 +583,7 @@ class _IconSelector extends StatelessWidget {
   const _IconSelector();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, int>(
       selector: (_, vm) => vm.iconId,
       builder: (_, iconId, _) {
@@ -607,7 +603,7 @@ class _IconSelector extends StatelessWidget {
                       selected: iconId == iconOption.id,
                       onSelected: action == FormAction.show
                           ? null
-                          : (_) => context.read<MeasurementUnitFormVm>().iconId = iconOption.id,
+                          : (_) => ctx.read<MeasurementUnitFormVm>().iconId = iconOption.id,
                     );
                   }).toList(),
                 ),
@@ -624,7 +620,7 @@ class _IconError extends StatelessWidget {
   const _IconError();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, String>(
       selector: (_, vm) => vm.errorIconId,
       builder: (_, error, _) {
@@ -642,7 +638,7 @@ class _GlobalError extends StatelessWidget {
   const _GlobalError();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, String>(
       selector: (_, vm) => vm.errorSave,
       builder: (_, error, _) {
@@ -676,13 +672,13 @@ class _ActionButtons extends StatelessWidget {
   const _ActionButtons();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Selector<MeasurementUnitFormVm, FormAction>(
       selector: (_, vm) => vm.action,
-      builder: (_, action, __) {
+      builder: (_, action, _) {
         if (action == FormAction.show) {
           return ElevatedButton.icon(
-            onPressed: () => context.read<MeasurementUnitFormVm>().action = FormAction.update,
+            onPressed: () => ctx.read<MeasurementUnitFormVm>().action = FormAction.update,
             icon: const Icon(Icons.edit),
             label: const Text('Editar'),
           );
@@ -693,7 +689,7 @@ class _ActionButtons extends StatelessWidget {
           children: [
             Expanded(
               child: ElevatedButton.icon(
-                onPressed: () => context.read<MeasurementUnitFormVm>().save(),
+                onPressed: () => ctx.read<MeasurementUnitFormVm>().save(),
                 icon: const Icon(Icons.save),
                 label: const Text('Guardar'),
               ),
@@ -701,7 +697,7 @@ class _ActionButtons extends StatelessWidget {
             const SizedBox(width: 8),
             Expanded(
               child: OutlinedButton.icon(
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => Navigator.pop(ctx),
                 icon: const Icon(Icons.close),
                 label: const Text('Cancelar'),
               ),

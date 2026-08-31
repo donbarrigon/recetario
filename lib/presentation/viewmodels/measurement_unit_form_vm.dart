@@ -60,7 +60,30 @@ class MeasurementUnitFormVm extends ChangeNotifier {
        _errorGroup = '',
        _errorScale = '',
        _errorDescription = '',
-       _errorSave = '';
+       _errorSave = '' {
+    if (_id.isNotEmpty) {
+      _load();
+    }
+  }
+
+  void _load() {
+    var unit = _repo.get(_id);
+    if (unit == null) {
+      _errorId = 'No existe una unidad de medida con el id: [$_id]';
+      return;
+    }
+
+    _iconId = unit.iconId;
+    _symbol = unit.symbol;
+    _name = unit.name;
+    _isExact = unit.isExact;
+    _typeUnit = unit.typeUnit;
+    _group = unit.group;
+    _scale = unit.scale;
+    _description = unit.description;
+
+    // notifyListeners();
+  }
 
   // == GETTERS ==================================================
 
@@ -233,6 +256,14 @@ class MeasurementUnitFormVm extends ChangeNotifier {
 
   /// return true if not has errors
   bool _validateAll() {
+    _errorSave = '';
+    _errorId = '';
+    _errorIconId = '';
+    _errorSymbol = '';
+    _errorName = '';
+    _errorGroup = '';
+    _errorScale = '';
+    _errorDescription = '';
     _validateId();
     _validateIconId();
     _validateSymbol();
@@ -254,8 +285,10 @@ class MeasurementUnitFormVm extends ChangeNotifier {
   void save() {
     _errorSave = '';
 
-    if (_validateAll()) {
-      _errorSave = 'Verifique los campos en rojo';
+    if (!_validateAll()) {
+      _errorSave =
+          'Verifique: ${_errorId.isNotEmpty ? '$_errorId ' : ''}${_errorIconId.isNotEmpty ? '$_errorIconId ' : ''}${_errorSymbol.isNotEmpty ? '$_errorSymbol ' : ''}${_errorName.isNotEmpty ? '$_errorName ' : ''}${_errorGroup.isNotEmpty ? '$_errorGroup ' : ''}${_errorScale.isNotEmpty ? '$_errorScale ' : ''}${_errorDescription.isNotEmpty ? '$_errorDescription ' : ''}'
+              .replaceAll('  ', ' ');
       notifyListeners();
       return;
     }

@@ -6,17 +6,16 @@ import 'package:recetario/data/repositories/measurement_unit_repository.dart';
 import 'package:recetario/data/repositories/recipe_ingredient_repository.dart';
 
 class RecipeIngredientFormVm extends ChangeNotifier {
-
   FormAction _action;
   final RecipeIngredientRepository _repo = RecipeIngredientRepository();
 
-  String _id;                                    // ulid
-  String _name;                                  // ingrediente
+  String _id; // ulid
+  String _name; // ingrediente
   // String _measureUnitId;                         // id unidad de medida base
-  MeasurementUnit? _measureUnit;                 // unidad de medida para el hasOne
+  MeasurementUnit? _measureUnit; // unidad de medida para el hasOne
   // List<String> _measureUnitAvailableIds;         // ids de las unidades de medida disponibles
   List<MeasurementUnit> _measureUnitAvailables; // unidades de medida disponibles para el hasMany
-  String _description;                           // descripcion
+  String _description; // descripcion
 
   String _errorId;
   String _errorName;
@@ -33,13 +32,13 @@ class RecipeIngredientFormVm extends ChangeNotifier {
     MeasurementUnit? measureUnit,
     // List<String>? measureUnitAvailableIds,
     List<MeasurementUnit>? measureUnitAvailables,
-    String? description
+    String? description,
   }) : _action = action ?? FormAction.show,
        _id = id ?? '',
        _name = name ?? '',
-      //  _measureUnitId = measureUnitId ?? '',
-      //  _measureUnit = measureUnit,
-      //  _measureUnitAvailableIds = measureUnitAvailableIds ?? [],
+       //  _measureUnitId = measureUnitId ?? '',
+       //  _measureUnit = measureUnit,
+       //  _measureUnitAvailableIds = measureUnitAvailableIds ?? [],
        _measureUnitAvailables = measureUnitAvailables ?? [],
        _description = description ?? '',
        _errorId = '',
@@ -47,7 +46,22 @@ class RecipeIngredientFormVm extends ChangeNotifier {
        _errorMeasureUnit = '',
        _errormeasureUnitAvailables = '',
        _errorDescription = '',
-       _errorSave = '';
+       _errorSave = '' {
+    if (_id.isNotEmpty) _load();
+  }
+
+  void _load() {
+    var ri = _repo.get(_id);
+    if (ri == null) {
+      _errorId = 'No existe un ingrediente con el id: [$_id]';
+      return;
+    }
+
+    _name = ri.name;
+    _measureUnit = ri.measureUnit;
+    _measureUnitAvailables = ri.measureUnitAvailables ?? [];
+    _description = ri.description;
+  }
 
   // == GETTERS ==================================================
 
@@ -69,55 +83,55 @@ class RecipeIngredientFormVm extends ChangeNotifier {
   // == SETTERS ==================================================
 
   set action(FormAction v) {
-    if ( v == _action ) return;
+    if (v == _action) return;
     _action = v;
     notifyListeners();
   }
 
   set id(String v) {
-    if ( v == _id ) return;
+    if (v == _id) return;
     var last = _errorId;
     _id = v;
     _validateId();
-    if ( last != _errorId ) notifyListeners();
+    if (last != _errorId) notifyListeners();
   }
 
   set name(String v) {
-    if ( v == _name ) return;
+    if (v == _name) return;
     var last = _errorName;
     _name = v;
     _validateName();
-    if ( last != _errorName ) notifyListeners();
+    if (last != _errorName) notifyListeners();
   }
 
   set measureUnit(MeasurementUnit? v) {
-    if ( v == _measureUnit ) return;
+    if (v == _measureUnit) return;
     var last = _errorMeasureUnit;
     _measureUnit = v;
     _validateMeasureUnit();
-    if ( last != _errorMeasureUnit ) notifyListeners();
+    if (last != _errorMeasureUnit) notifyListeners();
   }
 
   set measureUnitAvailables(List<MeasurementUnit> v) {
-    if ( v == _measureUnitAvailables ) return;
+    if (v == _measureUnitAvailables) return;
     var last = _errormeasureUnitAvailables;
     _measureUnitAvailables = v;
     _validatemeasureUnitAvailables();
-    if ( last != _errormeasureUnitAvailables ) notifyListeners();
+    if (last != _errormeasureUnitAvailables) notifyListeners();
   }
 
   set description(String v) {
-    if ( v == _description ) return;
+    if (v == _description) return;
     var last = _errorDescription;
     _description = v;
     _validateDescription();
-    if ( last != _errorDescription ) notifyListeners();
+    if (last != _errorDescription) notifyListeners();
   }
 
   // == VALIDATORS ===============================================
 
   void _validateId() {
-    if (_action == FormAction.update ){
+    if (_action == FormAction.update) {
       _repo.get(_id) == null ? _errorId = 'No existe un ingrediente con el id: [$_id]' : _errorId = '';
     }
   }
@@ -153,7 +167,7 @@ class RecipeIngredientFormVm extends ChangeNotifier {
     if (_measureUnitAvailables.isEmpty) {
       _errormeasureUnitAvailables = 'Almenos una unidad de medida habilitada es requerida';
       return;
-    } 
+    }
     var mur = MeasurementUnitRepository();
     for (var mu in _measureUnitAvailables) {
       if (mur.get(mu.id) == null) {
@@ -163,7 +177,9 @@ class RecipeIngredientFormVm extends ChangeNotifier {
     }
   }
 
-  void _validateDescription() =>_description.length > 255 ? _errorDescription = 'La descripción debe tener maximo 255 caracteres' : _errorDescription = '';
+  void _validateDescription() => _description.length > 255
+      ? _errorDescription = 'La descripción debe tener maximo 255 caracteres'
+      : _errorDescription = '';
 
   /// return true if not has errors
   bool _validateAll() {
@@ -173,14 +189,14 @@ class RecipeIngredientFormVm extends ChangeNotifier {
     _validatemeasureUnitAvailables();
     _validateDescription();
     return _errorId.isEmpty &&
-      _errorName.isEmpty &&
-      _errorMeasureUnit.isEmpty &&
-      _errormeasureUnitAvailables.isEmpty &&
-      _errorDescription.isEmpty;
+        _errorName.isEmpty &&
+        _errorMeasureUnit.isEmpty &&
+        _errormeasureUnitAvailables.isEmpty &&
+        _errorDescription.isEmpty;
   }
 
   // == METHODS ==================================================
-  
+
   void save() {
     if (!_validateAll()) {
       _errorSave = 'Verifique los campos en rojo';
@@ -201,7 +217,7 @@ class RecipeIngredientFormVm extends ChangeNotifier {
       measureUnit: _measureUnit!,
       measureUnitAvailableIds: _measureUnitAvailables.map((x) => x.id).toList(),
       measureUnitAvailables: _measureUnitAvailables,
-      description: _description.trim()
+      description: _description.trim(),
     );
 
     try {

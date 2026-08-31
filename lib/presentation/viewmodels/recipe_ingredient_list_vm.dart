@@ -48,16 +48,12 @@ class RecipeIngredientListVm extends ChangeNotifier {
     notifyListeners();
   }
 
-  void delete(RecipeIngredient ingredient) {
+  Future<void> delete(RecipeIngredient ingredient) async {
     _isLoading = true;
     try {
-      var wasDeleted = _repo.delete(ingredient);
-      if (wasDeleted) {
-        _ingredients.remove(ingredient);
-        if (_selected?.id == ingredient.id) _selected = null;
-      } else {
-        _errorIngredients = 'El ingrediente ya no existe';
-      }
+      await _repo.delete(ingredient);
+      _ingredients.remove(ingredient);
+      if (_selected?.id == ingredient.id) _selected = null;
     } catch (e) {
       _errorIngredients = e.toString();
     } finally {

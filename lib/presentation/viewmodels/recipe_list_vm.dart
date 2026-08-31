@@ -63,16 +63,12 @@ class RecipeListVm extends ChangeNotifier {
     notifyListeners();
   }
 
-  void delete(Recipe recipe) {
+  Future<void> delete(Recipe recipe) async {
     _isLoading = true;
     try {
-      var wasDeleted = _repo.delete(recipe);
-      if (wasDeleted) {
-        _recipes.remove(recipe);
-        if (_selected?.id == recipe.id) _selected = null;
-      } else {
-        _errorRecipes = 'La receta ya no existe';
-      }
+      await _repo.delete(recipe);
+      _recipes.remove(recipe);
+      if (_selected?.id == recipe.id) _selected = null;
     } catch (e) {
       _errorRecipes = e.toString();
     } finally {

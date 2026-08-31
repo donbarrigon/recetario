@@ -55,19 +55,15 @@ class MeasurementUnitListVm extends ChangeNotifier {
     notifyListeners();
   }
 
-  void delete(MeasurementUnit mu) {
+  Future<void> delete(MeasurementUnit mu) async {
     _isLoading = true;
     try {
-      var wasDeleted = _repo.delete(mu);
-      if (wasDeleted) {
-        _units[mu.group]?.remove(mu);
-        if (_units[mu.group]?.isEmpty ?? false) {
-          _units.remove(mu.group);
-        }
-        if (_selected?.id == mu.id) _selected = null;
-      } else {
-        _errorUnits = 'La unidad ya no existe';
+      await _repo.delete(mu);
+      _units[mu.group]?.remove(mu);
+      if (_units[mu.group]?.isEmpty ?? false) {
+        _units.remove(mu.group);
       }
+      if (_selected?.id == mu.id) _selected = null;
     } catch (e) {
       _errorUnits = e.toString();
     } finally {

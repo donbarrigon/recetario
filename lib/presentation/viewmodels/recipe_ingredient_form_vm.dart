@@ -197,7 +197,7 @@ class RecipeIngredientFormVm extends ChangeNotifier {
 
   // == METHODS ==================================================
 
-  void save() {
+  Future<void> save() async {
     if (!_validateAll()) {
       _errorSave = 'Verifique los campos en rojo';
       notifyListeners();
@@ -222,10 +222,10 @@ class RecipeIngredientFormVm extends ChangeNotifier {
 
     try {
       if (_action == FormAction.create) {
-        ri = _repo.create(ri);
+        ri = await _repo.create(ri);
         _id = ri.id;
       } else {
-        _repo.update(ri);
+        await _repo.update(ri);
       }
       _errorSave = '';
       _action = FormAction.show;

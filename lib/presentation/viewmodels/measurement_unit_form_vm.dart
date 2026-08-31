@@ -282,7 +282,7 @@ class MeasurementUnitFormVm extends ChangeNotifier {
 
   // == ACTIONS ==================================================
 
-  void save() {
+  Future<void> save() async {
     _errorSave = '';
 
     if (!_validateAll()) {
@@ -313,10 +313,10 @@ class MeasurementUnitFormVm extends ChangeNotifier {
 
     try {
       if (_action == FormAction.create) {
-        m = _repo.create(m);
+        m = await _repo.create(m);
         _id = m.id;
       } else {
-        _repo.update(m);
+        await _repo.update(m);
       }
       _errorSave = '';
       show(m);

@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:recetario/data/models/recipe_ingredient.dart';
 import 'package:recetario/data/repositories/measurement_unit_repository.dart';
 import 'package:ulid/ulid.dart';
@@ -7,15 +7,12 @@ class RecipeIngredientRepository {
   final String boxName = 'recipe_ingredients';
   final MeasurementUnitRepository _mur;
 
-  RecipeIngredientRepository({
-    MeasurementUnitRepository? measurementUnitRepository
-  }) : _mur = measurementUnitRepository ?? MeasurementUnitRepository();
+  RecipeIngredientRepository({MeasurementUnitRepository? measurementUnitRepository})
+    : _mur = measurementUnitRepository ?? MeasurementUnitRepository();
 
   List<RecipeIngredient> getAll() {
-    var box = Hive.box(name: boxName);
-    var list = box.getAll(box.keys)
-      .map((x) => RecipeIngredient.fromMap(Map<String, dynamic>.from(x)))
-      .toList();
+    var box = Hive.box(boxName);
+    var list = box.values.map((x) => RecipeIngredient.fromMap(Map<String, dynamic>.from(x))).toList();
 
     return list.map((item) {
       var m = _mur.get(item.measureUnitId);
@@ -25,7 +22,7 @@ class RecipeIngredientRepository {
   }
 
   RecipeIngredient? get(String key) {
-    var box = Hive.box(name: boxName);
+    var box = Hive.box(boxName);
     var map = box.get(key);
     if (map == null) return null;
     var data = RecipeIngredient.fromMap(Map<String, dynamic>.from(map));
@@ -35,10 +32,12 @@ class RecipeIngredientRepository {
   }
 
   List<RecipeIngredient> getMany(List<String> keys) {
-    var box = Hive.box(name: boxName);
-    var list = box.getAll(keys)
-      .map((x) => RecipeIngredient.fromMap(Map<String, dynamic>.from(x)))
-      .toList();
+    var box = Hive.box(boxName);
+    var list = keys
+        .map((x) => box.get(x))
+        .where((x) => x != null)
+        .map((x) => RecipeIngredient.fromMap(Map<String, dynamic>.from(x)))
+        .toList();
 
     return list.map((item) {
       var m = _mur.get(item.measureUnitId);
@@ -47,26 +46,26 @@ class RecipeIngredientRepository {
     }).toList();
   }
 
-  RecipeIngredient create(RecipeIngredient m) {
+  Future<RecipeIngredient> create(RecipeIngredient m) async {
     var mu = m.copyWith(id: Ulid().toString());
-    var box = Hive.box(name: boxName);
+    var box = Hive.box(boxName);
     var map = mu.toMap();
     map.remove('measureUnit');
     map.remove('measureUnitAvailables');
-    box.put(mu.id, map);
+    await box.put(mu.id, map);
     return mu;
   }
 
-  void update(RecipeIngredient m) {
-    var box = Hive.box(name: boxName);
+  Future<void> update(RecipeIngredient m) async {
+    var box = Hive.box(boxName);
     var map = m.toMap();
     map.remove('measureUnit');
     map.remove('measureUnitAvailables');
-    box.put(m.id, map);
+    await box.put(m.id, map);
   }
 
-  bool delete(RecipeIngredient m) {
-    var box = Hive.box(name: boxName);
-    return box.delete(m.id);
+  Future<void> delete(RecipeIngredient m) async {
+    var box = Hive.box(boxName);
+    await box.delete(m.id);
   }
 }

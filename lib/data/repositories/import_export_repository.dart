@@ -11,7 +11,7 @@ class ImportExportRepository {
   static const String _ingredientsBoxName = 'recipe_ingredients';
   static const String _unitsBoxName = 'measurement_units';
 
-  /// Descarga el JSON semilla desde una URL (ej: raw.githubusercontent.com/.../seed.json)
+  /// Descarga el JSON semilla desde la URL https://raw.githubusercontent.com/donbarrigon/recetario/master/seed.json
   Future<Map<String, dynamic>> downloadSeed(String url) async {
     var response = await http.get(Uri.parse(url));
     if (response.statusCode != 200) {

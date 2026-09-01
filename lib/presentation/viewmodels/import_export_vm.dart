@@ -10,7 +10,7 @@ class ImportExportVm extends ChangeNotifier {
   final ImportExportRepository _repo = ImportExportRepository();
 
   /// URL del JSON semilla en GitHub. Reemplazar por la URL real del repo.
-  static const String seedUrl = 'https://raw.githubusercontent.com/donbarrigon/recetario-seed/main/seed.json';
+  static const String seedUrl = 'https://raw.githubusercontent.com/donbarrigon/recetario/master/seed.json';
 
   bool _isLoading;
   String _errorMessage;

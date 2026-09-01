@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recetario/presentation/views/import_export/list.dart';
 import 'package:recetario/presentation/views/recipe/list.dart';
 import 'package:recetario/presentation/views/recipe_ingredient/list.dart';
 import 'package:recetario/presentation/views/measurement_unit/list.dart';
@@ -41,6 +42,14 @@ class AppDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (_) => const MeasurementUnitListView()));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.file_upload),
+            title: const Text('Importar / Exportar'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const ImportExportView()));
             },
           ),
         ],

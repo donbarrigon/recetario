@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recetario/core/constants/form_action.dart';
+import 'package:recetario/core/constants/icon_option.dart';
 import 'package:recetario/data/models/measurement_unit.dart';
 import 'package:recetario/data/repositories/measurement_unit_repository.dart';
 import 'package:recetario/presentation/viewmodels/recipe_ingredient_form_vm.dart';
@@ -40,7 +41,7 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeIngredientFormVm, FormAction>(
       selector: (_, vm) => vm.action,
-      builder: (ctx, action, _) {
+      builder: (ctx, action, __) {
         return AppBar(
           leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => Navigator.pop(ctx)),
           title: Text('${action.label}: ingrediente'),
@@ -72,8 +73,8 @@ class _FormContent extends StatelessWidget {
         _NameError(),
         SizedBox(height: 16),
 
-        _MeasureUnitField(),
-        _MeasureUnitError(),
+        _IconSelector(),
+        _IconError(),
         SizedBox(height: 16),
 
         _MeasureUnitAvailablesField(),
@@ -122,7 +123,7 @@ class _NameFieldState extends State<_NameField> {
   Widget build(BuildContext context) {
     return Selector<RecipeIngredientFormVm, FormAction>(
       selector: (_, vm) => vm.action,
-      builder: (_, action, _) {
+      builder: (_, action, __) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -148,7 +149,7 @@ class _NameError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeIngredientFormVm, String>(
       selector: (_, vm) => vm.errorName,
-      builder: (_, error, _) {
+      builder: (_, error, __) {
         if (error.isEmpty) return const SizedBox.shrink();
         return Padding(padding: const EdgeInsets.only(top: 4), child: _buildErrorText(error));
       },
@@ -157,35 +158,35 @@ class _NameError extends StatelessWidget {
 }
 
 // ============================================================
-// 5. Campo: Unidad de medida base (hasOne)
+// 5. Icono: Selector visual (mismo patrón que MeasurementUnitFormView)
 // ============================================================
-class _MeasureUnitField extends StatelessWidget {
-  const _MeasureUnitField();
+class _IconSelector extends StatelessWidget {
+  const _IconSelector();
 
   @override
   Widget build(BuildContext context) {
-    return Selector<RecipeIngredientFormVm, MeasurementUnit?>(
-      selector: (_, vm) => vm.measureUnit,
-      builder: (context, measureUnit, _) {
+    return Selector<RecipeIngredientFormVm, int>(
+      selector: (_, vm) => vm.iconId,
+      builder: (_, iconId, __) {
         return Selector<RecipeIngredientFormVm, FormAction>(
           selector: (_, vm) => vm.action,
-          builder: (context, action, _) {
-            var enabled = action != FormAction.show;
+          builder: (_, action, __) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Unidad de medida base *', style: TextStyle(fontWeight: FontWeight.bold)),
-                const SizedBox(height: 4),
-                InkWell(
-                  onTap: enabled ? () => _pickSingle(context) : null,
-                  child: InputDecorator(
-                    decoration: InputDecoration(border: const OutlineInputBorder(), filled: !enabled),
-                    child: Text(
-                      measureUnit == null
-                          ? 'Selecciona una unidad de medida'
-                          : '${measureUnit.name} (${measureUnit.symbol})',
-                    ),
-                  ),
+                const Text('Icono', style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                Wrap(
+                  spacing: 8,
+                  children: IconOption.all.map((iconOption) {
+                    return ChoiceChip(
+                      label: Icon(iconOption.icon, size: 24),
+                      selected: iconId == iconOption.id,
+                      onSelected: action == FormAction.show
+                          ? null
+                          : (_) => context.read<RecipeIngredientFormVm>().iconId = iconOption.id,
+                    );
+                  }).toList(),
                 ),
               ],
             );
@@ -194,37 +195,16 @@ class _MeasureUnitField extends StatelessWidget {
       },
     );
   }
-
-  Future<void> _pickSingle(BuildContext context) async {
-    var vm = context.read<RecipeIngredientFormVm>();
-    var units = MeasurementUnitRepository().getAll();
-
-    var picked = await showModalBottomSheet<MeasurementUnit>(
-      context: context,
-      builder: (ctx) {
-        return ListView(
-          shrinkWrap: true,
-          children: units.map((u) {
-            return ListTile(title: Text(u.name), subtitle: Text(u.symbol), onTap: () => Navigator.pop(ctx, u));
-          }).toList(),
-        );
-      },
-    );
-
-    if (picked != null) {
-      vm.measureUnit = picked;
-    }
-  }
 }
 
-class _MeasureUnitError extends StatelessWidget {
-  const _MeasureUnitError();
+class _IconError extends StatelessWidget {
+  const _IconError();
 
   @override
   Widget build(BuildContext context) {
     return Selector<RecipeIngredientFormVm, String>(
-      selector: (_, vm) => vm.errorMeasureUnit,
-      builder: (_, error, _) {
+      selector: (_, vm) => vm.errorIconId,
+      builder: (_, error, __) {
         if (error.isEmpty) return const SizedBox.shrink();
         return Padding(padding: const EdgeInsets.only(top: 4), child: _buildErrorText(error));
       },
@@ -242,10 +222,10 @@ class _MeasureUnitAvailablesField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeIngredientFormVm, List<MeasurementUnit>>(
       selector: (_, vm) => vm.measureUnitAvailables,
-      builder: (context, available, _) {
+      builder: (context, available, __) {
         return Selector<RecipeIngredientFormVm, FormAction>(
           selector: (_, vm) => vm.action,
-          builder: (context, action, _) {
+          builder: (context, action, __) {
             var enabled = action != FormAction.show;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -331,7 +311,7 @@ class _MeasureUnitAvailablesError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeIngredientFormVm, String>(
       selector: (_, vm) => vm.errorMeasureUnitAvailables,
-      builder: (_, error, _) {
+      builder: (_, error, __) {
         if (error.isEmpty) return const SizedBox.shrink();
         return Padding(padding: const EdgeInsets.only(top: 4), child: _buildErrorText(error));
       },
@@ -368,7 +348,7 @@ class _DescriptionFieldState extends State<_DescriptionField> {
   Widget build(BuildContext context) {
     return Selector<RecipeIngredientFormVm, FormAction>(
       selector: (_, vm) => vm.action,
-      builder: (_, action, _) {
+      builder: (_, action, __) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -398,7 +378,7 @@ class _DescriptionError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeIngredientFormVm, String>(
       selector: (_, vm) => vm.errorDescription,
-      builder: (_, error, _) {
+      builder: (_, error, __) {
         if (error.isEmpty) return const SizedBox.shrink();
         return Padding(padding: const EdgeInsets.only(top: 4), child: _buildErrorText(error));
       },
@@ -416,7 +396,7 @@ class _GlobalError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeIngredientFormVm, String>(
       selector: (_, vm) => vm.errorSave,
-      builder: (_, error, _) {
+      builder: (_, error, __) {
         if (error.isEmpty) return const SizedBox.shrink();
         return Container(
           padding: const EdgeInsets.all(12),
@@ -450,7 +430,7 @@ class _ActionButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeIngredientFormVm, FormAction>(
       selector: (_, vm) => vm.action,
-      builder: (_, action, _) {
+      builder: (_, action, __) {
         if (action == FormAction.show) {
           return ElevatedButton.icon(
             onPressed: () => context.read<RecipeIngredientFormVm>().action = FormAction.update,

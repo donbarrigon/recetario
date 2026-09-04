@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recetario/core/constants/form_action.dart';
+import 'package:recetario/core/constants/icon_option.dart';
 import 'package:recetario/data/models/measurement_unit.dart';
 import 'package:recetario/data/models/recipe_ingredient.dart';
 import 'package:recetario/data/repositories/measurement_unit_repository.dart';
@@ -8,43 +9,38 @@ import 'package:recetario/data/repositories/recipe_ingredient_repository.dart';
 class RecipeIngredientFormVm extends ChangeNotifier {
   FormAction _action;
   final RecipeIngredientRepository _repo = RecipeIngredientRepository();
+  final MeasurementUnitRepository _mur = MeasurementUnitRepository();
 
   String _id; // ulid
+  int _iconId; // id del IconOption
   String _name; // ingrediente
-  // String _measureUnitId;                         // id unidad de medida base
-  MeasurementUnit? _measureUnit; // unidad de medida para el hasOne
-  // List<String> _measureUnitAvailableIds;         // ids de las unidades de medida disponibles
   List<MeasurementUnit> _measureUnitAvailables; // unidades de medida disponibles para el hasMany
   String _description; // descripcion
 
   String _errorId;
+  String _errorIconId;
   String _errorName;
-  String _errorMeasureUnit;
-  String _errormeasureUnitAvailables;
+  String _errorMeasureUnitAvailables;
   String _errorDescription;
   String _errorSave;
 
   RecipeIngredientFormVm({
     FormAction? action,
     String? id,
+    int? iconId,
     String? name,
-    String? measureUnitId,
-    MeasurementUnit? measureUnit,
-    // List<String>? measureUnitAvailableIds,
     List<MeasurementUnit>? measureUnitAvailables,
     String? description,
   }) : _action = action ?? FormAction.show,
        _id = id ?? '',
+       _iconId = iconId ?? 0,
        _name = name ?? '',
-       //  _measureUnitId = measureUnitId ?? '',
-       //  _measureUnit = measureUnit,
-       //  _measureUnitAvailableIds = measureUnitAvailableIds ?? [],
        _measureUnitAvailables = measureUnitAvailables ?? [],
        _description = description ?? '',
        _errorId = '',
+       _errorIconId = '',
        _errorName = '',
-       _errorMeasureUnit = '',
-       _errormeasureUnitAvailables = '',
+       _errorMeasureUnitAvailables = '',
        _errorDescription = '',
        _errorSave = '' {
     if (_id.isNotEmpty) _load();
@@ -57,8 +53,8 @@ class RecipeIngredientFormVm extends ChangeNotifier {
       return;
     }
 
+    _iconId = ri.iconId;
     _name = ri.name;
-    _measureUnit = ri.measureUnit;
     _measureUnitAvailables = ri.measureUnitAvailables ?? [];
     _description = ri.description;
   }
@@ -67,16 +63,14 @@ class RecipeIngredientFormVm extends ChangeNotifier {
 
   FormAction get action => _action;
   String get id => _id;
+  int get iconId => _iconId;
   String get name => _name;
-  // String get measureUnitId => _measureUnitId;
-  MeasurementUnit? get measureUnit => _measureUnit;
-  // List<String> get measureUnitAvailableIds => _measureUnitAvailableIds;
   List<MeasurementUnit> get measureUnitAvailables => _measureUnitAvailables;
   String get description => _description;
   String get errorId => _errorId;
+  String get errorIconId => _errorIconId;
   String get errorName => _errorName;
-  String get errorMeasureUnit => _errorMeasureUnit;
-  String get errorMeasureUnitAvailables => _errormeasureUnitAvailables;
+  String get errorMeasureUnitAvailables => _errorMeasureUnitAvailables;
   String get errorDescription => _errorDescription;
   String get errorSave => _errorSave;
 
@@ -96,6 +90,13 @@ class RecipeIngredientFormVm extends ChangeNotifier {
     if (last != _errorId) notifyListeners();
   }
 
+  set iconId(int v) {
+    if (v == _iconId) return;
+    _iconId = v;
+    _validateIconId();
+    notifyListeners();
+  }
+
   set name(String v) {
     if (v == _name) return;
     var last = _errorName;
@@ -104,20 +105,11 @@ class RecipeIngredientFormVm extends ChangeNotifier {
     if (last != _errorName) notifyListeners();
   }
 
-  set measureUnit(MeasurementUnit? v) {
-    if (v == _measureUnit) return;
-    var last = _errorMeasureUnit;
-    _measureUnit = v;
-    _validateMeasureUnit();
-    if (last != _errorMeasureUnit) notifyListeners();
-  }
-
   set measureUnitAvailables(List<MeasurementUnit> v) {
     if (v == _measureUnitAvailables) return;
-    var last = _errormeasureUnitAvailables;
     _measureUnitAvailables = v;
-    _validatemeasureUnitAvailables();
-    if (last != _errormeasureUnitAvailables) notifyListeners();
+    _validateMeasureUnitAvailables();
+    notifyListeners();
   }
 
   set description(String v) {
@@ -131,8 +123,18 @@ class RecipeIngredientFormVm extends ChangeNotifier {
   // == VALIDATORS ===============================================
 
   void _validateId() {
+    _errorId = '';
     if (_action == FormAction.update) {
-      _repo.get(_id) == null ? _errorId = 'No existe un ingrediente con el id: [$_id]' : _errorId = '';
+      if (_repo.get(_id) == null) {
+        _errorId = 'No existe un ingrediente con el id: [$_id]';
+      }
+    }
+  }
+
+  void _validateIconId() {
+    _errorIconId = '';
+    if (!IconOption.exists(_iconId)) {
+      _errorIconId = 'No existe un ícono con el id: [$_iconId]';
     }
   }
 
@@ -148,50 +150,35 @@ class RecipeIngredientFormVm extends ChangeNotifier {
     }
   }
 
-  void _validateMeasureUnit() {
-    _errorMeasureUnit = '';
-    if (_measureUnit == null) {
-      _errorMeasureUnit = 'La unidad de medida es requerida';
-      return;
-    }
-
-    var mur = MeasurementUnitRepository();
-    if (mur.get(_measureUnit!.id) == null) {
-      _errorMeasureUnit = 'No existe una unidad de medida con el id: [${_measureUnit!.id}]';
-      return;
-    }
-  }
-
-  void _validatemeasureUnitAvailables() {
-    _errormeasureUnitAvailables = '';
+  void _validateMeasureUnitAvailables() {
+    _errorMeasureUnitAvailables = '';
     if (_measureUnitAvailables.isEmpty) {
-      _errormeasureUnitAvailables = 'Almenos una unidad de medida habilitada es requerida';
+      _errorMeasureUnitAvailables = 'Almenos una unidad de medida habilitada es requerida';
       return;
     }
-    var mur = MeasurementUnitRepository();
     for (var mu in _measureUnitAvailables) {
-      if (mur.get(mu.id) == null) {
-        _errormeasureUnitAvailables = 'No existe una unidad de medida con el id: [${mu.id}]';
+      if (_mur.get(mu.id) == null) {
+        _errorMeasureUnitAvailables = 'No existe una unidad de medida con el id: [${mu.id}]';
         return;
       }
     }
   }
 
   void _validateDescription() => _description.length > 255
-      ? _errorDescription = 'La descripción debe tener maximo 255 caracteres'
+      ? _errorDescription = 'La descripción debe tener maximo 255 caracteres'
       : _errorDescription = '';
 
   /// return true if not has errors
   bool _validateAll() {
     _validateId();
+    _validateIconId();
     _validateName();
-    _validateMeasureUnit();
-    _validatemeasureUnitAvailables();
+    _validateMeasureUnitAvailables();
     _validateDescription();
     return _errorId.isEmpty &&
+        _errorIconId.isEmpty &&
         _errorName.isEmpty &&
-        _errorMeasureUnit.isEmpty &&
-        _errormeasureUnitAvailables.isEmpty &&
+        _errorMeasureUnitAvailables.isEmpty &&
         _errorDescription.isEmpty;
   }
 
@@ -212,9 +199,8 @@ class RecipeIngredientFormVm extends ChangeNotifier {
 
     var ri = RecipeIngredient(
       id: _id,
+      iconId: _iconId,
       name: _name.trim(),
-      measureUnitId: _measureUnit!.id,
-      measureUnit: _measureUnit!,
       measureUnitAvailableIds: _measureUnitAvailables.map((x) => x.id).toList(),
       measureUnitAvailables: _measureUnitAvailables,
       description: _description.trim(),

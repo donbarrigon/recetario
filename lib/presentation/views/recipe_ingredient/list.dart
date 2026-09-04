@@ -4,6 +4,7 @@ import 'package:recetario/core/constants/form_action.dart';
 import 'package:recetario/data/models/recipe_ingredient.dart';
 import 'package:recetario/presentation/viewmodels/recipe_ingredient_list_vm.dart';
 import 'package:recetario/presentation/views/recipe_ingredient/form.dart';
+import 'package:recetario/core/constants/icon_option.dart';
 
 // ============================================================
 // 1. Widget principal
@@ -181,17 +182,17 @@ class _IngredientTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var iconOption = IconOption.getId(ingredient.iconId);
+
     return Selector<RecipeIngredientListVm, bool>(
       selector: (_, vm) => vm.selected?.id == ingredient.id,
       builder: (context, isSelected, _) {
         return ListTile(
           selected: isSelected,
           selectedTileColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
-          leading: const CircleAvatar(child: Icon(Icons.egg_outlined)),
+          leading: CircleAvatar(child: Icon(iconOption?.icon ?? Icons.help_outline)),
           title: Text(ingredient.name),
-          subtitle: Text(
-            ingredient.measureUnit != null ? 'Unidad base: ${ingredient.measureUnit!.symbol}' : 'Sin unidad de medida',
-          ),
+          subtitle: Text('${ingredient.measureUnitAvailables?.length ?? 0} unidad(es) de medida habilitada(s)'),
           trailing: isSelected ? const Icon(Icons.check_circle) : null,
           onTap: () => context.read<RecipeIngredientListVm>().select(ingredient),
         );

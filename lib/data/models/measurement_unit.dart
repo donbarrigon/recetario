@@ -1,14 +1,13 @@
-
 class MeasurementUnit {
-  final String id;           // ULID
-  final int iconId;       // id del IconOPtion icono con de flutter
-  final String symbol;       // g, ml, oz, etc
-  final String name;         // gramo, mililitro, onza etc
-  final bool isExact;        // true gramera, false ojo%
-  final TypeUnit typeUnit;   // integer, float, fraction
-  final String group;        // para agrupar
-  final double scale;        // define la escala contra la unidad base del grupo
-  final String description;  // texto de ayuda
+  final String id; // ULID
+  final int iconId; // id del IconOPtion
+  final String symbol; // g, ml, oz, etc
+  final String name; // gramo, mililitro, onza etc
+  final bool isExact; // true gramera, false ojo%
+  final TypeUnit typeUnit; // integer, float, fraction
+  final String group; // para agrupar
+  final double scale; // define la escala contra la unidad base del grupo
+  final String description; // texto de ayuda
 
   MeasurementUnit({
     required this.id,
@@ -19,7 +18,7 @@ class MeasurementUnit {
     required this.typeUnit,
     required this.group,
     required this.scale,
-    required this.description
+    required this.description,
   });
 
   factory MeasurementUnit.fromMap(Map<String, dynamic> map) {
@@ -32,7 +31,7 @@ class MeasurementUnit {
       typeUnit: TypeUnit.values.byName(map['typeUnit']),
       group: map['group'],
       scale: map['scale'],
-      description: map['description']
+      description: map['description'],
     );
   }
 
@@ -46,7 +45,7 @@ class MeasurementUnit {
       'typeUnit': typeUnit.name,
       'group': group,
       'scale': scale,
-      'description': description
+      'description': description,
     };
   }
 
@@ -59,7 +58,7 @@ class MeasurementUnit {
     TypeUnit? typeUnit,
     String? group,
     double? scale,
-    String? description
+    String? description,
   }) {
     return MeasurementUnit(
       id: id ?? this.id,
@@ -70,13 +69,9 @@ class MeasurementUnit {
       typeUnit: typeUnit ?? this.typeUnit,
       group: group ?? this.group,
       scale: scale ?? this.scale,
-      description: description ?? this.description
+      description: description ?? this.description,
     );
   }
 }
 
-enum TypeUnit {
-  float,
-  integer,
-  fraction
-}
+enum TypeUnit { float, integer, fraction }

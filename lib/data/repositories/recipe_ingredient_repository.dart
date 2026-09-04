@@ -15,9 +15,8 @@ class RecipeIngredientRepository {
     var list = box.values.map((x) => RecipeIngredient.fromMap(Map<String, dynamic>.from(x))).toList();
 
     return list.map((item) {
-      var m = _mur.get(item.measureUnitId);
       var lm = _mur.getMany(item.measureUnitAvailableIds);
-      return item.copyWith(measureUnit: m, measureUnitAvailables: lm);
+      return item.copyWith(measureUnitAvailables: lm);
     }).toList();
   }
 
@@ -26,9 +25,8 @@ class RecipeIngredientRepository {
     var map = box.get(key);
     if (map == null) return null;
     var data = RecipeIngredient.fromMap(Map<String, dynamic>.from(map));
-    var m = _mur.get(data.measureUnitId);
     var lm = _mur.getMany(data.measureUnitAvailableIds);
-    return data.copyWith(measureUnit: m, measureUnitAvailables: lm);
+    return data.copyWith(measureUnitAvailables: lm);
   }
 
   List<RecipeIngredient> getMany(List<String> keys) {
@@ -40,9 +38,8 @@ class RecipeIngredientRepository {
         .toList();
 
     return list.map((item) {
-      var m = _mur.get(item.measureUnitId);
       var lm = _mur.getMany(item.measureUnitAvailableIds);
-      return item.copyWith(measureUnit: m, measureUnitAvailables: lm);
+      return item.copyWith(measureUnitAvailables: lm);
     }).toList();
   }
 

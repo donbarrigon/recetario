@@ -19,6 +19,7 @@ class RecipeFormVm extends ChangeNotifier {
   List<RecipeIngredientItem> _ingredients;
   List<RecipeStep> _steps;
   List<String> _tips;
+  List<int>? _selectedStepPath;
 
   String _errorId;
   String _errorName;
@@ -43,6 +44,7 @@ class RecipeFormVm extends ChangeNotifier {
        _ingredients = ingredients ?? [],
        _steps = steps ?? [],
        _tips = tips ?? [],
+       _selectedStepPath = null,
        _errorId = '',
        _errorName = '',
        _errorDescription = '',
@@ -78,6 +80,8 @@ class RecipeFormVm extends ChangeNotifier {
   List<RecipeIngredientItem> get ingredients => _ingredients;
   List<RecipeStep> get steps => _steps;
   List<String> get tips => _tips;
+  List<int>? get selectedStepPath => _selectedStepPath;
+  RecipeStep? get selectedStep => _selectedStepPath == null ? null : _findStep(_steps, _selectedStepPath!);
   String get errorId => _errorId;
   String get errorName => _errorName;
   String get errorDescription => _errorDescription;
@@ -85,6 +89,8 @@ class RecipeFormVm extends ChangeNotifier {
   String get errorSteps => _errorSteps;
   String get errorTips => _errorTips;
   String get errorSave => _errorSave;
+
+  bool isStepPathSelected(List<int> path) => _pathEquals(_selectedStepPath, path);
 
   // == SETTERS ================================================
 
@@ -325,16 +331,117 @@ class RecipeFormVm extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Agrega un paso al nivel raíz (no depende de selección).
   void addStep(RecipeStep step) {
     _steps = [..._steps, step];
     _validateSteps();
     notifyListeners();
   }
 
-  void removeStepAt(int index) {
-    if (index < 0 || index >= _steps.length) return;
-    _steps = List.of(_steps)..removeAt(index);
+  /// Elimina el paso en la ruta indicada (funciona en cualquier nivel de anidamiento).
+  void removeStepAtPath(List<int> path) {
+    _steps = _removeAtPath(_steps, path);
+    if (_selectedStepPath != null && _isPrefixOrEqual(path, _selectedStepPath!)) {
+      _selectedStepPath = null;
+    }
     _validateSteps();
     notifyListeners();
+  }
+
+  // == SELECCIÓN DE PASOS =======================================
+
+  void selectStep(List<int> path) {
+    _selectedStepPath = _pathEquals(_selectedStepPath, path) ? null : path;
+    notifyListeners();
+  }
+
+  void clearStepSelection() {
+    if (_selectedStepPath == null) return;
+    _selectedStepPath = null;
+    notifyListeners();
+  }
+
+  /// Agrega un sub-paso al paso actualmente seleccionado.
+  void addSubStepToSelected(RecipeStep newSub) {
+    if (_selectedStepPath == null) return;
+    _steps = _replaceStep(_steps, _selectedStepPath!, (s) => s.copyWith(steps: [...s.steps, newSub]));
+    _validateSteps();
+    notifyListeners();
+  }
+
+  /// Edita nombre/texto del paso seleccionado, conservando sus sub-pasos existentes.
+  void editSelectedStep({required String name, required String text}) {
+    if (_selectedStepPath == null) return;
+    _steps = _replaceStep(_steps, _selectedStepPath!, (s) => s.copyWith(name: name, text: text));
+    _validateSteps();
+    notifyListeners();
+  }
+
+  /// Inserta otra receta como sub-paso del paso seleccionado: el nombre de la
+  /// receta pasa a ser el nombre del paso, su descripción el texto del paso,
+  /// y sus propios pasos quedan como sub-pasos de este nuevo nodo.
+  void insertRecipeAsSubStep(Recipe recipe) {
+    if (_selectedStepPath == null) return;
+    var newStep = RecipeStep(
+      name: recipe.name,
+      image: '',
+      text: recipe.description,
+      steps: recipe.steps,
+    );
+    addSubStepToSelected(newStep);
+  }
+
+  // == HELPERS DE ÁRBOL (privados) ==============================
+
+  RecipeStep? _findStep(List<RecipeStep> steps, List<int> path) {
+    if (path.isEmpty) return null;
+    var idx = path.first;
+    if (idx < 0 || idx >= steps.length) return null;
+    var step = steps[idx];
+    if (path.length == 1) return step;
+    return _findStep(step.steps, path.sublist(1));
+  }
+
+  List<RecipeStep> _replaceStep(List<RecipeStep> steps, List<int> path, RecipeStep Function(RecipeStep) transform) {
+    if (path.isEmpty) return steps;
+    var idx = path.first;
+    if (idx < 0 || idx >= steps.length) return steps;
+    var newList = List<RecipeStep>.of(steps);
+    if (path.length == 1) {
+      newList[idx] = transform(steps[idx]);
+    } else {
+      var child = steps[idx];
+      newList[idx] = child.copyWith(steps: _replaceStep(child.steps, path.sublist(1), transform));
+    }
+    return newList;
+  }
+
+  List<RecipeStep> _removeAtPath(List<RecipeStep> steps, List<int> path) {
+    if (path.isEmpty) return steps;
+    var idx = path.first;
+    if (idx < 0 || idx >= steps.length) return steps;
+    if (path.length == 1) {
+      return List<RecipeStep>.of(steps)..removeAt(idx);
+    }
+    var newList = List<RecipeStep>.of(steps);
+    var child = steps[idx];
+    newList[idx] = child.copyWith(steps: _removeAtPath(child.steps, path.sublist(1)));
+    return newList;
+  }
+
+  bool _pathEquals(List<int>? a, List<int> b) {
+    if (a == null || a.length != b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] != b[i]) return false;
+    }
+    return true;
+  }
+
+  bool _isPrefixOrEqual(List<int> prefix, List<int> full) {
+    if (prefix.length > full.length) return false;
+    for (var i = 0; i < prefix.length; i++) {
+      if (prefix[i] != full[i]) return false;
+    }
+    return true;
   }
 }

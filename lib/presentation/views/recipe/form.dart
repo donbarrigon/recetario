@@ -47,14 +47,14 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeFormVm, List<int>?>(
       selector: (_, vm) => vm.selectedStepPath,
-      builder: (context, selectedPath, __) {
+      builder: (context, selectedPath, _) {
         if (selectedPath != null) {
           return const _StepContextualAppBar();
         }
 
         return Selector<RecipeFormVm, FormAction>(
           selector: (_, vm) => vm.action,
-          builder: (ctx, action, __) {
+          builder: (ctx, action, _) {
             return AppBar(
               leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => Navigator.pop(ctx)),
               title: Text('${action.label}: receta'),
@@ -62,7 +62,14 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
                 if (action == FormAction.show)
                   IconButton(
                     icon: const Icon(Icons.edit),
+                    tooltip: 'Editar receta',
                     onPressed: () => ctx.read<RecipeFormVm>().action = FormAction.update,
+                  )
+                else
+                  IconButton(
+                    icon: const Icon(Icons.menu_book_outlined),
+                    tooltip: 'Insertar receta como paso',
+                    onPressed: () => _insertRecipeAsRootStep(ctx),
                   ),
               ],
             );
@@ -70,6 +77,12 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
         );
       },
     );
+  }
+
+  Future<void> _insertRecipeAsRootStep(BuildContext context) async {
+    var vm = context.read<RecipeFormVm>();
+    var recipe = await _pickRecipe(context, vm.id);
+    if (recipe != null) vm.insertRecipeAsStep(recipe);
   }
 }
 
@@ -83,7 +96,7 @@ class _StepContextualAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeFormVm, RecipeStep?>(
       selector: (_, vm) => vm.selectedStep,
-      builder: (context, step, __) {
+      builder: (context, step, _) {
         if (step == null) {
           return AppBar(
             title: const Text('Paso'),
@@ -93,6 +106,8 @@ class _StepContextualAppBar extends StatelessWidget {
             ),
           );
         }
+
+        var theme = Theme.of(context);
 
         return AppBar(
           leading: IconButton(
@@ -116,6 +131,15 @@ class _StepContextualAppBar extends StatelessWidget {
               icon: const Icon(Icons.menu_book_outlined),
               tooltip: 'Insertar receta como sub-paso',
               onPressed: () => _insertRecipe(context),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: SizedBox(height: 24, child: VerticalDivider(color: theme.colorScheme.outline, thickness: 1)),
+            ),
+            IconButton(
+              icon: Icon(Icons.delete_outline, color: theme.colorScheme.error),
+              tooltip: 'Eliminar paso',
+              onPressed: () => _deleteStep(context),
             ),
           ],
         );
@@ -145,13 +169,27 @@ class _StepContextualAppBar extends StatelessWidget {
 
   Future<void> _insertRecipe(BuildContext context) async {
     var vm = context.read<RecipeFormVm>();
-    var recipe = await showModalBottomSheet<Recipe>(
-      context: context,
-      isScrollControlled: true,
-      builder: (_) => _RecipePickerDialog(excludeId: vm.id),
-    );
+    var recipe = await _pickRecipe(context, vm.id);
     if (recipe != null) vm.insertRecipeAsSubStep(recipe);
   }
+
+  void _deleteStep(BuildContext context) {
+    var vm = context.read<RecipeFormVm>();
+    var path = vm.selectedStepPath;
+    if (path == null) return;
+    vm.removeStepAtPath(path);
+  }
+}
+
+// ============================================================
+// 2e. Helper compartido: abrir el selector de recetas
+// ============================================================
+Future<Recipe?> _pickRecipe(BuildContext context, String excludeId) {
+  return showModalBottomSheet<Recipe>(
+    context: context,
+    isScrollControlled: true,
+    builder: (_) => _RecipePickerDialog(excludeId: excludeId),
+  );
 }
 
 // ============================================================
@@ -219,7 +257,7 @@ class _NameFieldState extends State<_NameField> {
   Widget build(BuildContext context) {
     return Selector<RecipeFormVm, FormAction>(
       selector: (_, vm) => vm.action,
-      builder: (_, action, __) {
+      builder: (_, action, _) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -245,7 +283,7 @@ class _NameError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeFormVm, String>(
       selector: (_, vm) => vm.errorName,
-      builder: (_, error, __) {
+      builder: (_, error, _) {
         if (error.isEmpty) return const SizedBox.shrink();
         return Padding(padding: const EdgeInsets.only(top: 4), child: _buildErrorText(error));
       },
@@ -282,7 +320,7 @@ class _DescriptionFieldState extends State<_DescriptionField> {
   Widget build(BuildContext context) {
     return Selector<RecipeFormVm, FormAction>(
       selector: (_, vm) => vm.action,
-      builder: (_, action, __) {
+      builder: (_, action, _) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -312,7 +350,7 @@ class _DescriptionError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeFormVm, String>(
       selector: (_, vm) => vm.errorDescription,
-      builder: (_, error, __) {
+      builder: (_, error, _) {
         if (error.isEmpty) return const SizedBox.shrink();
         return Padding(padding: const EdgeInsets.only(top: 4), child: _buildErrorText(error));
       },
@@ -330,10 +368,10 @@ class _IngredientsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeFormVm, List<RecipeIngredientItem>>(
       selector: (_, vm) => vm.ingredients,
-      builder: (context, ingredients, __) {
+      builder: (context, ingredients, _) {
         return Selector<RecipeFormVm, FormAction>(
           selector: (_, vm) => vm.action,
-          builder: (context, action, __) {
+          builder: (context, action, _) {
             var enabled = action != FormAction.show;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -398,7 +436,7 @@ class _IngredientsError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeFormVm, String>(
       selector: (_, vm) => vm.errorIngredients,
-      builder: (_, error, __) {
+      builder: (_, error, _) {
         if (error.isEmpty) return const SizedBox.shrink();
         return Padding(padding: const EdgeInsets.only(top: 4), child: _buildErrorText(error));
       },
@@ -510,10 +548,10 @@ class _StepsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeFormVm, List<RecipeStep>>(
       selector: (_, vm) => vm.steps,
-      builder: (context, steps, __) {
+      builder: (context, steps, _) {
         return Selector<RecipeFormVm, FormAction>(
           selector: (_, vm) => vm.action,
-          builder: (context, action, __) {
+          builder: (context, action, _) {
             var enabled = action != FormAction.show;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -566,7 +604,7 @@ class _StepsError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeFormVm, String>(
       selector: (_, vm) => vm.errorSteps,
-      builder: (_, error, __) {
+      builder: (_, error, _) {
         if (error.isEmpty) return const SizedBox.shrink();
         return Padding(padding: const EdgeInsets.only(top: 4), child: _buildErrorText(error));
       },
@@ -598,10 +636,10 @@ class _StepNodeState extends State<_StepNode> {
 
     return Selector<RecipeFormVm, bool>(
       selector: (_, vm) => vm.isStepPathSelected(widget.path),
-      builder: (context, isSelected, __) {
+      builder: (context, isSelected, _) {
         return Selector<RecipeFormVm, FormAction>(
           selector: (_, vm) => vm.action,
-          builder: (context, action, __) {
+          builder: (context, action, _) {
             var enabled = action != FormAction.show;
             var theme = Theme.of(context);
 
@@ -652,11 +690,11 @@ class _StepNodeState extends State<_StepNode> {
                               ],
                             ),
                           ),
-                          if (enabled)
-                            IconButton(
-                              icon: const Icon(Icons.delete_outline),
-                              onPressed: () => context.read<RecipeFormVm>().removeStepAtPath(widget.path),
-                            ),
+                          // if (enabled)
+                          //   IconButton(
+                          //     icon: const Icon(Icons.delete_outline),
+                          //     onPressed: () => context.read<RecipeFormVm>().removeStepAtPath(widget.path),
+                          //   ),
                         ],
                       ),
                     ),
@@ -753,7 +791,7 @@ class _StepEditDialogState extends State<_StepEditDialog> {
 }
 
 // ============================================================
-// 7d. Modal para elegir una receta existente (insertar como sub-paso)
+// 7d. Modal para elegir una receta existente
 // ============================================================
 class _RecipePickerDialog extends StatefulWidget {
   final String excludeId;
@@ -813,7 +851,7 @@ class _GlobalError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeFormVm, String>(
       selector: (_, vm) => vm.errorSave,
-      builder: (_, error, __) {
+      builder: (_, error, _) {
         if (error.isEmpty) return const SizedBox.shrink();
         return Container(
           padding: const EdgeInsets.all(12),
@@ -826,7 +864,9 @@ class _GlobalError extends StatelessWidget {
             children: [
               Icon(Icons.error_outline, color: Colors.red.shade700),
               const SizedBox(width: 8),
-              Expanded(child: Text(error, style: TextStyle(color: Colors.red.shade700))),
+              Expanded(
+                child: Text(error, style: TextStyle(color: Colors.red.shade700)),
+              ),
             ],
           ),
         );
@@ -845,7 +885,7 @@ class _ActionButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<RecipeFormVm, FormAction>(
       selector: (_, vm) => vm.action,
-      builder: (_, action, __) {
+      builder: (_, action, _) {
         if (action == FormAction.show) {
           return ElevatedButton.icon(
             onPressed: () => context.read<RecipeFormVm>().action = FormAction.update,
@@ -893,7 +933,9 @@ Widget _buildErrorText(String error) {
       children: [
         Icon(Icons.error_outline, color: Colors.red.shade700, size: 16),
         const SizedBox(width: 8),
-        Expanded(child: Text(error, style: TextStyle(color: Colors.red.shade700, fontSize: 12))),
+        Expanded(
+          child: Text(error, style: TextStyle(color: Colors.red.shade700, fontSize: 12)),
+        ),
       ],
     ),
   );

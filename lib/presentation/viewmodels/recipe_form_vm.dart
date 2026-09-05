@@ -377,18 +377,22 @@ class RecipeFormVm extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Inserta otra receta como sub-paso del paso seleccionado: el nombre de la
-  /// receta pasa a ser el nombre del paso, su descripción el texto del paso,
-  /// y sus propios pasos quedan como sub-pasos de este nuevo nodo.
+  /// Construye un RecipeStep a partir de otra receta: su nombre pasa a ser el
+  /// nombre del paso, su descripción el texto del paso, y sus propios pasos
+  /// quedan como sub-pasos de este nuevo nodo.
+  RecipeStep _stepFromRecipe(Recipe recipe) {
+    return RecipeStep(name: recipe.name, image: '', text: recipe.description, steps: recipe.steps);
+  }
+
+  /// Inserta otra receta como sub-paso del paso seleccionado.
   void insertRecipeAsSubStep(Recipe recipe) {
     if (_selectedStepPath == null) return;
-    var newStep = RecipeStep(
-      name: recipe.name,
-      image: '',
-      text: recipe.description,
-      steps: recipe.steps,
-    );
-    addSubStepToSelected(newStep);
+    addSubStepToSelected(_stepFromRecipe(recipe));
+  }
+
+  /// Inserta otra receta como paso raíz de esta receta (no depende de selección).
+  void insertRecipeAsStep(Recipe recipe) {
+    addStep(_stepFromRecipe(recipe));
   }
 
   // == HELPERS DE ÁRBOL (privados) ==============================

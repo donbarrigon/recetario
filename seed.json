@@ -1,208 +1,567 @@
 {
   "measurement_units": [
-    { "id": "01M1RT1ARY24H3ETX841EAJ1XJ", "iconId": 0, "symbol": "g", "name": "Gramo", "isExact": true, "typeUnit": "float", "group": "peso", "scale": 1.0, "description": "Unidad base de peso, ideal para dosis exactas." },
-    { "id": "01M1RT1ARZGAFZE1TCBGHEW7CM", "iconId": 9, "symbol": "cdta", "name": "Cucharadita", "isExact": false, "typeUnit": "float", "group": "peso", "scale": 5.0, "description": "Equivalente aproximado a 5 g." },
-    { "id": "01M1RT1ARZS7Z7YRJW2537YPEH", "iconId": 9, "symbol": "cda", "name": "Cucharada", "isExact": false, "typeUnit": "float", "group": "peso", "scale": 11.0, "description": "Equivalente aproximado a 11 g." },
-    { "id": "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "iconId": 0, "symbol": "lb", "name": "Libra", "isExact": true, "typeUnit": "float", "group": "peso", "scale": 500.0, "description": "Equivalente aproximado a 500 g (medida comercial usual)." },
-    { "id": "01M1RT1ARZ1YYPCJ262F1K4SGT", "iconId": 0, "symbol": "kg", "name": "Kilogramo", "isExact": true, "typeUnit": "float", "group": "peso", "scale": 1000.0, "description": "Equivalente a 1000 g." },
-    { "id": "01M1RT1ARZC22CMHPB7TJ1RPEB", "iconId": 6, "symbol": "pizca", "name": "Pizca", "isExact": false, "typeUnit": "fraction", "group": "porcion", "scale": 0.3, "description": "Cantidad muy pequeña, a ojo, sin gramera." },
-    { "id": "01M1RT1ARZ16YYXK3VFACW3FQZ", "iconId": 1, "symbol": "ml", "name": "Mililitro", "isExact": true, "typeUnit": "float", "group": "liquidos", "scale": 1.0, "description": "Unidad base de volumen." },
-    { "id": "01M1RT1ARZH739KD15JS9EF8PX", "iconId": 1, "symbol": "cl", "name": "Centilitro", "isExact": true, "typeUnit": "float", "group": "liquidos", "scale": 10.0, "description": "Equivalente a 10 ml." },
-    { "id": "01M1RT1ARZ4NYRWKB0WG5GZC7V", "iconId": 15, "symbol": "oz", "name": "Onza", "isExact": true, "typeUnit": "float", "group": "liquidos", "scale": 30.0, "description": "Onza líquida, equivalente aproximado a 30 ml." },
-    { "id": "01M1RT1ARZBQAFV46M417B83HX", "iconId": 18, "symbol": "tza", "name": "Taza", "isExact": false, "typeUnit": "float", "group": "liquidos", "scale": 240.0, "description": "Medida aproximada, equivalente a unos 240 ml." },
-    { "id": "01M1RT1AS0QB23806KPDHVGQFD", "iconId": 1, "symbol": "l", "name": "Litro", "isExact": true, "typeUnit": "float", "group": "liquidos", "scale": 1000.0, "description": "Equivalente a 1000 ml." },
-    { "id": "01M1RT1AS0KA5PZZ4AMC8B2N26", "iconId": 7, "symbol": "u", "name": "Unidad", "isExact": true, "typeUnit": "integer", "group": "unidad", "scale": 1.0, "description": "Conteo de piezas individuales." },
-    { "id": "01M1RT1AS084FRXECJWB2Y5H9Y", "iconId": 7, "symbol": "dec", "name": "Decena", "isExact": true, "typeUnit": "integer", "group": "unidad", "scale": 10.0, "description": "Equivalente a 10 unidades." },
-    { "id": "01M1RT1AS0DRV5CN4DR357KBWT", "iconId": 7, "symbol": "doc", "name": "Docena", "isExact": true, "typeUnit": "integer", "group": "unidad", "scale": 12.0, "description": "Equivalente a 12 unidades." },
-    { "id": "01M1RT1AS03DJGE0TBHSZCWFM4", "iconId": 7, "symbol": "par", "name": "Par", "isExact": true, "typeUnit": "integer", "group": "unidad", "scale": 2.0, "description": "Equivalente a 2 unidades." },
-    { "id": "01M1RT1AS0KHS905HGHQM8ZF4Y", "iconId": 5, "symbol": "cm", "name": "Centímetro", "isExact": true, "typeUnit": "float", "group": "longitud", "scale": 1.0, "description": "Unidad base de longitud, la más usada en cocina." },
-    { "id": "01M1RT1AS0446ZR56JP65JTXN5", "iconId": 5, "symbol": "mm", "name": "Milímetro", "isExact": true, "typeUnit": "float", "group": "longitud", "scale": 0.1, "description": "Equivalente a una décima de centímetro." },
-    { "id": "01M1RT1AS02HMZ5CFAR402P88D", "iconId": 5, "symbol": "m", "name": "Metro", "isExact": true, "typeUnit": "float", "group": "longitud", "scale": 100.0, "description": "Equivalente a 100 centímetros." },
-    { "id": "01M1RT1AS0R7TRM0Q54J12G2YA", "iconId": 16, "symbol": "dosis", "name": "Dosis", "isExact": true, "typeUnit": "integer", "group": "café", "scale": 1.0, "description": "Una dosis equivale a un shot de espresso (aprox. 7-9 g de café molido)." },
-    { "id": "01M1RT1AS01338KA901V98T81Y", "iconId": 8, "symbol": "chorrito", "name": "Chorrito (para decorar)", "isExact": false, "typeUnit": "fraction", "group": "decoracion", "scale": 1.0, "description": "Cantidad libre, al gusto, para decorar o dar el toque final." }
+    {
+      "id": "01M1RT1ARY24H3ETX841EAJ1XJ",
+      "iconId": 0,
+      "symbol": "g",
+      "name": "Gramo",
+      "isExact": true,
+      "typeUnit": "float",
+      "group": "peso",
+      "scale": 1.0,
+      "description": "Unidad base de peso, ideal para dosis exactas."
+    },
+    {
+      "id": "01M1RT1ARZGAFZE1TCBGHEW7CM",
+      "iconId": 9,
+      "symbol": "cdta",
+      "name": "Cucharadita",
+      "isExact": false,
+      "typeUnit": "float",
+      "group": "peso",
+      "scale": 5.0,
+      "description": "Equivalente aproximado a 5 g."
+    },
+    {
+      "id": "01M1RT1ARZS7Z7YRJW2537YPEH",
+      "iconId": 9,
+      "symbol": "cda",
+      "name": "Cucharada",
+      "isExact": false,
+      "typeUnit": "float",
+      "group": "peso",
+      "scale": 11.0,
+      "description": "Equivalente aproximado a 11 g."
+    },
+    {
+      "id": "01M1RT1ARZ7C3SX8GJWY0YVDQJ",
+      "iconId": 0,
+      "symbol": "lb",
+      "name": "Libra",
+      "isExact": true,
+      "typeUnit": "float",
+      "group": "peso",
+      "scale": 500.0,
+      "description": "Equivalente aproximado a 500 g (medida comercial usual)."
+    },
+    {
+      "id": "01M1RT1ARZ1YYPCJ262F1K4SGT",
+      "iconId": 0,
+      "symbol": "kg",
+      "name": "Kilogramo",
+      "isExact": true,
+      "typeUnit": "float",
+      "group": "peso",
+      "scale": 1000.0,
+      "description": "Equivalente a 1000 g."
+    },
+    {
+      "id": "01M1RT1ARZC22CMHPB7TJ1RPEB",
+      "iconId": 6,
+      "symbol": "pizca",
+      "name": "Pizca",
+      "isExact": false,
+      "typeUnit": "fraction",
+      "group": "porcion",
+      "scale": 0.3,
+      "description": "Cantidad muy pequeña, a ojo, sin gramera."
+    },
+    {
+      "id": "01M1RT1ARZ16YYXK3VFACW3FQZ",
+      "iconId": 1,
+      "symbol": "ml",
+      "name": "Mililitro",
+      "isExact": true,
+      "typeUnit": "float",
+      "group": "liquidos",
+      "scale": 1.0,
+      "description": "Unidad base de volumen."
+    },
+    {
+      "id": "01M1RT1ARZH739KD15JS9EF8PX",
+      "iconId": 1,
+      "symbol": "cl",
+      "name": "Centilitro",
+      "isExact": true,
+      "typeUnit": "float",
+      "group": "liquidos",
+      "scale": 10.0,
+      "description": "Equivalente a 10 ml."
+    },
+    {
+      "id": "01M1RT1ARZ4NYRWKB0WG5GZC7V",
+      "iconId": 15,
+      "symbol": "oz",
+      "name": "Onza",
+      "isExact": true,
+      "typeUnit": "float",
+      "group": "liquidos",
+      "scale": 30.0,
+      "description": "Onza líquida, equivalente aproximado a 30 ml."
+    },
+    {
+      "id": "01M1RT1ARZBQAFV46M417B83HX",
+      "iconId": 18,
+      "symbol": "tza",
+      "name": "Taza",
+      "isExact": false,
+      "typeUnit": "float",
+      "group": "liquidos",
+      "scale": 240.0,
+      "description": "Medida aproximada, equivalente a unos 240 ml."
+    },
+    {
+      "id": "01M1RT1AS0QB23806KPDHVGQFD",
+      "iconId": 1,
+      "symbol": "l",
+      "name": "Litro",
+      "isExact": true,
+      "typeUnit": "float",
+      "group": "liquidos",
+      "scale": 1000.0,
+      "description": "Equivalente a 1000 ml."
+    },
+    {
+      "id": "01M1RT1AS0KA5PZZ4AMC8B2N26",
+      "iconId": 7,
+      "symbol": "u",
+      "name": "Unidad",
+      "isExact": true,
+      "typeUnit": "integer",
+      "group": "unidad",
+      "scale": 1.0,
+      "description": "Conteo de piezas individuales."
+    },
+    {
+      "id": "01M1RT1AS084FRXECJWB2Y5H9Y",
+      "iconId": 7,
+      "symbol": "dec",
+      "name": "Decena",
+      "isExact": true,
+      "typeUnit": "integer",
+      "group": "unidad",
+      "scale": 10.0,
+      "description": "Equivalente a 10 unidades."
+    },
+    {
+      "id": "01M1RT1AS0DRV5CN4DR357KBWT",
+      "iconId": 7,
+      "symbol": "doc",
+      "name": "Docena",
+      "isExact": true,
+      "typeUnit": "integer",
+      "group": "unidad",
+      "scale": 12.0,
+      "description": "Equivalente a 12 unidades."
+    },
+    {
+      "id": "01M1RT1AS03DJGE0TBHSZCWFM4",
+      "iconId": 7,
+      "symbol": "par",
+      "name": "Par",
+      "isExact": true,
+      "typeUnit": "integer",
+      "group": "unidad",
+      "scale": 2.0,
+      "description": "Equivalente a 2 unidades."
+    },
+    {
+      "id": "01M1RT1AS0KHS905HGHQM8ZF4Y",
+      "iconId": 5,
+      "symbol": "cm",
+      "name": "Centímetro",
+      "isExact": true,
+      "typeUnit": "float",
+      "group": "longitud",
+      "scale": 1.0,
+      "description": "Unidad base de longitud, la más usada en cocina."
+    },
+    {
+      "id": "01M1RT1AS0446ZR56JP65JTXN5",
+      "iconId": 5,
+      "symbol": "mm",
+      "name": "Milímetro",
+      "isExact": true,
+      "typeUnit": "float",
+      "group": "longitud",
+      "scale": 0.1,
+      "description": "Equivalente a una décima de centímetro."
+    },
+    {
+      "id": "01M1RT1AS02HMZ5CFAR402P88D",
+      "iconId": 5,
+      "symbol": "m",
+      "name": "Metro",
+      "isExact": true,
+      "typeUnit": "float",
+      "group": "longitud",
+      "scale": 100.0,
+      "description": "Equivalente a 100 centímetros."
+    },
+    {
+      "id": "01M1RT1AS0R7TRM0Q54J12G2YA",
+      "iconId": 16,
+      "symbol": "dosis",
+      "name": "Dosis",
+      "isExact": true,
+      "typeUnit": "integer",
+      "group": "café",
+      "scale": 1.0,
+      "description": "Una dosis equivale a un shot de espresso (aprox. 7-9 g de café molido)."
+    },
+    {
+      "id": "01M1RT1AS01338KA901V98T81Y",
+      "iconId": 8,
+      "symbol": "chorrito",
+      "name": "Chorrito (para decorar)",
+      "isExact": false,
+      "typeUnit": "fraction",
+      "group": "decoracion",
+      "scale": 1.0,
+      "description": "Cantidad libre, al gusto, para decorar o dar el toque final."
+    }
   ],
   "recipe_ingredients": [
     {
       "id": "01M1RT1AS1PZVMMSME09K8BDKV",
       "iconId": 29,
       "name": "Arequipe",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZGAFZE1TCBGHEW7CM"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1ARZS7Z7YRJW2537YPEH",
+        "01M1RT1ARZGAFZE1TCBGHEW7CM"
+      ],
       "description": "Dulce de leche espeso, usado en postres y bebidas de café."
     },
     {
       "id": "01M1RT1AS10ZXDCQJBWGC8YCBQ",
       "iconId": 8,
       "name": "Lecherita (leche condensada)",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZGAFZE1TCBGHEW7CM"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1ARZS7Z7YRJW2537YPEH",
+        "01M1RT1ARZGAFZE1TCBGHEW7CM"
+      ],
       "description": "Leche condensada azucarada, base de bebidas como el bombón."
     },
     {
       "id": "01M1RT1AS1J9TXHPNX5G1X9N1X",
       "iconId": 6,
       "name": "Panela pulverizada",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "01M1RT1ARZ1YYPCJ262F1K4SGT"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1ARZGAFZE1TCBGHEW7CM",
+        "01M1RT1ARZS7Z7YRJW2537YPEH",
+        "01M1RT1ARZ7C3SX8GJWY0YVDQJ",
+        "01M1RT1ARZ1YYPCJ262F1K4SGT"
+      ],
       "description": "Panela molida, se disuelve más rápido que el bloque entero."
     },
     {
       "id": "01M1RT1AS1R34WQY5EYRZFSHZX",
       "iconId": 6,
       "name": "Azúcar morena",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "01M1RT1ARZ1YYPCJ262F1K4SGT"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1ARZGAFZE1TCBGHEW7CM",
+        "01M1RT1ARZS7Z7YRJW2537YPEH",
+        "01M1RT1ARZ7C3SX8GJWY0YVDQJ",
+        "01M1RT1ARZ1YYPCJ262F1K4SGT"
+      ],
       "description": "Azúcar sin refinar por completo, de sabor más intenso."
     },
     {
       "id": "01M1RT1AS1ZY94KV8H82HM664Y",
       "iconId": 6,
       "name": "Azúcar refinada",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "01M1RT1ARZ1YYPCJ262F1K4SGT"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1ARZGAFZE1TCBGHEW7CM",
+        "01M1RT1ARZS7Z7YRJW2537YPEH",
+        "01M1RT1ARZ7C3SX8GJWY0YVDQJ",
+        "01M1RT1ARZ1YYPCJ262F1K4SGT"
+      ],
       "description": "Azúcar blanca de mesa, de grano fino."
     },
     {
       "id": "01M1RT1AS1ADZFP75TP0W279FQ",
       "iconId": 8,
       "name": "Azúcar pulverizada",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "01M1RT1ARZ1YYPCJ262F1K4SGT"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1ARZGAFZE1TCBGHEW7CM",
+        "01M1RT1ARZS7Z7YRJW2537YPEH",
+        "01M1RT1ARZ7C3SX8GJWY0YVDQJ",
+        "01M1RT1ARZ1YYPCJ262F1K4SGT"
+      ],
       "description": "Azúcar glas, molida muy fina, usada para tortas y decoración."
     },
     {
       "id": "01M1RT1AS12M198ETFNCKHQYQB",
       "iconId": 1,
       "name": "Miel",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZGAFZE1TCBGHEW7CM"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1ARZS7Z7YRJW2537YPEH",
+        "01M1RT1ARZGAFZE1TCBGHEW7CM"
+      ],
       "description": "Miel de abejas, endulzante natural líquido."
     },
     {
       "id": "01M1RT1AS1M9V4JXSVHQAH3BRZ",
       "iconId": 18,
       "name": "Café tostado (en grano)",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ"
+      ],
       "description": "Café tostado entero, para moler al momento de preparar."
     },
     {
       "id": "01M1RT1AS1K5V96K5DF97RZDC9",
       "iconId": 18,
       "name": "Café tostado y molido",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZGAFZE1TCBGHEW7CM"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1ARZS7Z7YRJW2537YPEH",
+        "01M1RT1ARZGAFZE1TCBGHEW7CM"
+      ],
       "description": "Café ya molido, listo para preparar en espresso, filtrado u otros métodos."
     },
     {
       "id": "01M1RT1AS1A09GCW4PWZPM623R",
       "iconId": 1,
       "name": "Leche",
-      "measureUnitAvailableIds": ["01M1RT1ARZ16YYXK3VFACW3FQZ", "01M1RT1ARZH739KD15JS9EF8PX", "01M1RT1ARZ4NYRWKB0WG5GZC7V", "01M1RT1ARZBQAFV46M417B83HX", "01M1RT1AS0QB23806KPDHVGQFD"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARZ16YYXK3VFACW3FQZ",
+        "01M1RT1ARZH739KD15JS9EF8PX",
+        "01M1RT1ARZ4NYRWKB0WG5GZC7V",
+        "01M1RT1ARZBQAFV46M417B83HX",
+        "01M1RT1AS0QB23806KPDHVGQFD"
+      ],
       "description": "Leche líquida entera o deslactosada, para vaporizar o mezclar."
     },
     {
       "id": "01M1RT1AS1FZ582F5AFZH1XJZ9",
       "iconId": 6,
       "name": "Leche en polvo",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZGAFZE1TCBGHEW7CM"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1ARZS7Z7YRJW2537YPEH",
+        "01M1RT1ARZGAFZE1TCBGHEW7CM"
+      ],
       "description": "Leche deshidratada, se disuelve en agua o se usa directo en mezclas."
     },
     {
       "id": "01M1RT1AS1EGNY07NNGGRVDK2M",
       "iconId": 6,
       "name": "Cacao en polvo",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "01M1RT1ARZ1YYPCJ262F1K4SGT"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1ARZGAFZE1TCBGHEW7CM",
+        "01M1RT1ARZS7Z7YRJW2537YPEH",
+        "01M1RT1ARZ7C3SX8GJWY0YVDQJ",
+        "01M1RT1ARZ1YYPCJ262F1K4SGT"
+      ],
       "description": "Cacao puro sin azúcar, para mocaccinos y repostería."
     },
     {
       "id": "01M1RT1AS13GKXXT0V1YD18WJ8",
       "iconId": 6,
       "name": "Canela en polvo",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "01M1RT1ARZ1YYPCJ262F1K4SGT", "01M1RT1ARZC22CMHPB7TJ1RPEB"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1ARZGAFZE1TCBGHEW7CM",
+        "01M1RT1ARZS7Z7YRJW2537YPEH",
+        "01M1RT1ARZ7C3SX8GJWY0YVDQJ",
+        "01M1RT1ARZ1YYPCJ262F1K4SGT",
+        "01M1RT1ARZC22CMHPB7TJ1RPEB"
+      ],
       "description": "Canela molida, especia clásica para café y postres."
     },
     {
       "id": "01M1RT1AS1A7HQAM1S82PTWQYY",
       "iconId": 26,
       "name": "Canela en astillas",
-      "measureUnitAvailableIds": ["01M1RT1AS0KA5PZZ4AMC8B2N26", "01M1RT1AS084FRXECJWB2Y5H9Y", "01M1RT1AS0DRV5CN4DR357KBWT", "01M1RT1AS03DJGE0TBHSZCWFM4"],
+      "measureUnitAvailableIds": [
+        "01M1RT1AS0KA5PZZ4AMC8B2N26",
+        "01M1RT1AS084FRXECJWB2Y5H9Y",
+        "01M1RT1AS0DRV5CN4DR357KBWT",
+        "01M1RT1AS03DJGE0TBHSZCWFM4"
+      ],
       "description": "Canela entera en rama, para infusionar leche o bebidas calientes."
     },
     {
       "id": "01M1RT1AS1954YPZQS224KA1SF",
       "iconId": 6,
       "name": "Nuez moscada en polvo",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "01M1RT1ARZ1YYPCJ262F1K4SGT", "01M1RT1ARZC22CMHPB7TJ1RPEB"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1ARZGAFZE1TCBGHEW7CM",
+        "01M1RT1ARZS7Z7YRJW2537YPEH",
+        "01M1RT1ARZ7C3SX8GJWY0YVDQJ",
+        "01M1RT1ARZ1YYPCJ262F1K4SGT",
+        "01M1RT1ARZC22CMHPB7TJ1RPEB"
+      ],
       "description": "Especia aromática usada en chocolate caliente y bebidas navideñas."
     },
     {
       "id": "01M1RT1AS1AKSAYG5P51707D20",
       "iconId": 26,
       "name": "Clavos de olor",
-      "measureUnitAvailableIds": ["01M1RT1AS0KA5PZZ4AMC8B2N26", "01M1RT1AS084FRXECJWB2Y5H9Y", "01M1RT1AS0DRV5CN4DR357KBWT", "01M1RT1AS03DJGE0TBHSZCWFM4"],
+      "measureUnitAvailableIds": [
+        "01M1RT1AS0KA5PZZ4AMC8B2N26",
+        "01M1RT1AS084FRXECJWB2Y5H9Y",
+        "01M1RT1AS0DRV5CN4DR357KBWT",
+        "01M1RT1AS03DJGE0TBHSZCWFM4"
+      ],
       "description": "Especia entera, usada para infusionar café y bebidas especiadas tipo chai."
     },
     {
       "id": "01M1RT1AS149NYFWHEQZTN2065",
       "iconId": 26,
       "name": "Cardamomo",
-      "measureUnitAvailableIds": ["01M1RT1AS0KA5PZZ4AMC8B2N26", "01M1RT1AS084FRXECJWB2Y5H9Y", "01M1RT1AS0DRV5CN4DR357KBWT", "01M1RT1AS03DJGE0TBHSZCWFM4"],
+      "measureUnitAvailableIds": [
+        "01M1RT1AS0KA5PZZ4AMC8B2N26",
+        "01M1RT1AS084FRXECJWB2Y5H9Y",
+        "01M1RT1AS0DRV5CN4DR357KBWT",
+        "01M1RT1AS03DJGE0TBHSZCWFM4"
+      ],
       "description": "Especia entera, clásica en el café árabe y bebidas tipo chai."
     },
     {
       "id": "01M1RT1AS11NXR0DRQ6H4EFK93",
       "iconId": 8,
       "name": "Crema de chocolate",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1AS01338KA901V98T81Y"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1ARZS7Z7YRJW2537YPEH",
+        "01M1RT1ARZGAFZE1TCBGHEW7CM",
+        "01M1RT1AS01338KA901V98T81Y"
+      ],
       "description": "Crema untable de chocolate, usada como saborizante o para decorar."
     },
     {
       "id": "01M1RT1AS12WKNEMP7XM6RD7T4",
       "iconId": 8,
       "name": "Crema de maní",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZGAFZE1TCBGHEW7CM"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1ARZS7Z7YRJW2537YPEH",
+        "01M1RT1ARZGAFZE1TCBGHEW7CM"
+      ],
       "description": "Crema untable de maní, para bebidas con sabor a maní/chocolate."
     },
     {
       "id": "01M1RT1AS25T9NEEKEYM917N8G",
       "iconId": 1,
       "name": "Crema de leche",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "01M1RT1ARZ1YYPCJ262F1K4SGT"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1ARZGAFZE1TCBGHEW7CM",
+        "01M1RT1ARZS7Z7YRJW2537YPEH",
+        "01M1RT1ARZ7C3SX8GJWY0YVDQJ",
+        "01M1RT1ARZ1YYPCJ262F1K4SGT"
+      ],
       "description": "Crema de leche espesa, para dar cuerpo o decorar bebidas frías."
     },
     {
       "id": "01M1RT1AS2K0WDZZXD77GG24NJ",
       "iconId": 13,
       "name": "Helado",
-      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1AS0KA5PZZ4AMC8B2N26"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1AS0KA5PZZ4AMC8B2N26"
+      ],
       "description": "Helado de vainilla u otro sabor. Se recomienda medir por gramo cuando necesites precisión, o por unidad para una 'bola' estándar de heladería."
     },
     {
       "id": "01M1RT1AS2KDF456Q8W4CXR8TM",
       "iconId": 27,
       "name": "Ron",
-      "measureUnitAvailableIds": ["01M1RT1ARZ16YYXK3VFACW3FQZ", "01M1RT1ARZH739KD15JS9EF8PX", "01M1RT1ARZ4NYRWKB0WG5GZC7V"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARZ16YYXK3VFACW3FQZ",
+        "01M1RT1ARZH739KD15JS9EF8PX",
+        "01M1RT1ARZ4NYRWKB0WG5GZC7V"
+      ],
       "description": "Licor destilado de caña, usado en cafés con licor."
     },
     {
       "id": "01M1RT1AS2KF3ZY0BR9PYH32KR",
       "iconId": 27,
       "name": "Aguardiente",
-      "measureUnitAvailableIds": ["01M1RT1ARZ16YYXK3VFACW3FQZ", "01M1RT1ARZH739KD15JS9EF8PX", "01M1RT1ARZ4NYRWKB0WG5GZC7V"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARZ16YYXK3VFACW3FQZ",
+        "01M1RT1ARZH739KD15JS9EF8PX",
+        "01M1RT1ARZ4NYRWKB0WG5GZC7V"
+      ],
       "description": "Licor anisado colombiano, usado en algunas bebidas de café."
     },
     {
       "id": "01M1RT1AS2P6YA9HZV8DJVMJ6E",
       "iconId": 27,
       "name": "Whiskey",
-      "measureUnitAvailableIds": ["01M1RT1ARZ16YYXK3VFACW3FQZ", "01M1RT1ARZH739KD15JS9EF8PX", "01M1RT1ARZ4NYRWKB0WG5GZC7V"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARZ16YYXK3VFACW3FQZ",
+        "01M1RT1ARZH739KD15JS9EF8PX",
+        "01M1RT1ARZ4NYRWKB0WG5GZC7V"
+      ],
       "description": "Licor destilado de granos, usado en variantes de café irlandés."
     },
     {
       "id": "01M1RT1AS2HESD4XYV41TJ6Z4V",
       "iconId": 27,
       "name": "Brandy",
-      "measureUnitAvailableIds": ["01M1RT1ARZ16YYXK3VFACW3FQZ", "01M1RT1ARZH739KD15JS9EF8PX", "01M1RT1ARZ4NYRWKB0WG5GZC7V"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARZ16YYXK3VFACW3FQZ",
+        "01M1RT1ARZH739KD15JS9EF8PX",
+        "01M1RT1ARZ4NYRWKB0WG5GZC7V"
+      ],
       "description": "Licor destilado de uva, tradicional en el carajillo."
     },
     {
       "id": "01M1RT1AS24197RWFJ8ZGN0EV5",
       "iconId": 27,
       "name": "Licor de café",
-      "measureUnitAvailableIds": ["01M1RT1ARZ16YYXK3VFACW3FQZ", "01M1RT1ARZH739KD15JS9EF8PX", "01M1RT1ARZ4NYRWKB0WG5GZC7V"],
+      "measureUnitAvailableIds": [
+        "01M1RT1ARZ16YYXK3VFACW3FQZ",
+        "01M1RT1ARZH739KD15JS9EF8PX",
+        "01M1RT1ARZ4NYRWKB0WG5GZC7V"
+      ],
       "description": "Licor dulce con sabor a café, tipo Kahlúa."
+    },
+    {
+      "id": "01M1XMFMZYKTR587J3GA95JX9W",
+      "iconId": 1,
+      "name": "Agua",
+      "measureUnitAvailableIds": [
+        "01M1RT1ARZ16YYXK3VFACW3FQZ",
+        "01M1RT1ARZH739KD15JS9EF8PX",
+        "01M1RT1ARZ4NYRWKB0WG5GZC7V",
+        "01M1RT1ARZBQAFV46M417B83HX",
+        "01M1RT1AS0QB23806KPDHVGQFD"
+      ],
+      "description": "Agua potable, para diluir espresso o preparar otras bebidas."
+    },
+    {
+      "id": "01M1XMFMZY17WQ75XDDP35R4RC",
+      "iconId": 25,
+      "name": "Limón tahití",
+      "measureUnitAvailableIds": [
+        "01M1RT1AS0KA5PZZ4AMC8B2N26",
+        "01M1RT1AS084FRXECJWB2Y5H9Y",
+        "01M1RT1AS0DRV5CN4DR357KBWT"
+      ],
+      "description": "Cítrico usado para bebidas frías de café con limonada."
+    },
+    {
+      "id": "01M1XMFMZY8D36J6GEZBPMR9T8",
+      "iconId": 4,
+      "name": "Hielo",
+      "measureUnitAvailableIds": [
+        "01M1RT1ARY24H3ETX841EAJ1XJ",
+        "01M1RT1AS0KA5PZZ4AMC8B2N26"
+      ],
+      "description": "Hielo en cubos, para bebidas frías."
     }
   ],
   "recipes": [
@@ -218,13 +577,857 @@
         }
       ],
       "steps": [
-        { "name": "Moler", "image": "", "text": "Muele el café a una finura fina, similar a la sal de mesa.", "steps": [] },
-        { "name": "Dosificar y tampear", "image": "", "text": "Coloca el café molido en el portafiltro y compacta parejo con el tamper.", "steps": [] },
-        { "name": "Extraer", "image": "", "text": "Extrae entre 25 y 30 segundos hasta obtener 30 ml de espresso.", "steps": [] }
+        {
+          "name": "Moler",
+          "image": "",
+          "text": "Muele el café a una finura fina, similar a la sal de mesa.",
+          "steps": []
+        },
+        {
+          "name": "Dosificar y tampear",
+          "image": "",
+          "text": "Coloca el café molido en el portafiltro y compacta parejo con el tamper.",
+          "steps": []
+        },
+        {
+          "name": "Extraer",
+          "image": "",
+          "text": "Extrae entre 25 y 30 segundos hasta obtener 30 ml de espresso.",
+          "steps": []
+        }
       ],
       "tips": [
         "Si la extracción es muy rápida, muele más fino.",
         "Si es muy lenta, muele más grueso."
+      ]
+    },
+    {
+      "id": "01M1XMFMZYWG4FY0SXTJVH1V0N",
+      "name": "Ristretto",
+      "description": "Shot 'restringido': la misma dosis de café que un espresso, pero con menos agua, más concentrado y dulce.",
+      "ingredients": [
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Moler y dosificar",
+          "image": "",
+          "text": "Muele el café fino y dosifica 8 g en el portafiltro, compactando parejo.",
+          "steps": []
+        },
+        {
+          "name": "Extraer corto",
+          "image": "",
+          "text": "Extrae entre 15 y 20 segundos, deteniendo la extracción entre 15 y 20 ml.",
+          "steps": []
+        }
+      ],
+      "tips": [
+        "Al usar menos agua que un espresso, el sabor es más concentrado y menos amargo."
+      ]
+    },
+    {
+      "id": "01M1XMFMZY68R5BGPEJBB59W17",
+      "name": "Lungo",
+      "description": "Espresso 'largo': misma dosis de café pero dejando pasar más agua, resultando en un shot más suave y menos concentrado.",
+      "ingredients": [
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Moler y dosificar",
+          "image": "",
+          "text": "Muele el café fino y dosifica 8 g en el portafiltro, compactando parejo.",
+          "steps": []
+        },
+        {
+          "name": "Extraer largo",
+          "image": "",
+          "text": "Extrae entre 35 y 40 segundos hasta obtener unos 50-60 ml.",
+          "steps": []
+        }
+      ],
+      "tips": [
+        "Cuidado: extraer demasiado largo puede sacar sabores amargos indeseados."
+      ]
+    },
+    {
+      "id": "01M1XMFMZYQAZDFEWCJGXD3730",
+      "name": "Doppio",
+      "description": "Doble shot de espresso: el doble de café y el doble de extracción.",
+      "ingredients": [
+        {
+          "quantity": 16,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Moler y dosificar",
+          "image": "",
+          "text": "Muele el doble de café respecto a un espresso sencillo y usa un portafiltro doble.",
+          "steps": []
+        },
+        {
+          "name": "Extraer",
+          "image": "",
+          "text": "Extrae hasta obtener unos 60 ml en aproximadamente 25-30 segundos.",
+          "steps": []
+        }
+      ],
+      "tips": []
+    },
+    {
+      "id": "01M1XMFMZY51X7H5CYA2C588TP",
+      "name": "Americano",
+      "description": "Espresso diluido con agua caliente, agregada después de la extracción.",
+      "ingredients": [
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 120,
+          "unitId": "01M1RT1ARZ16YYXK3VFACW3FQZ",
+          "ingredientId": "01M1XMFMZYKTR587J3GA95JX9W"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Extraer el espresso",
+          "image": "",
+          "text": "Extrae un shot de espresso normal en una taza.",
+          "steps": []
+        },
+        {
+          "name": "Agregar agua caliente",
+          "image": "",
+          "text": "Agrega el agua caliente sobre el espresso ya extraído.",
+          "steps": []
+        }
+      ],
+      "tips": [
+        "Ajusta la cantidad de agua según qué tan suave lo prefieras."
+      ]
+    },
+    {
+      "id": "01M1XMFMZY0EHPF6XGNXE3MT89",
+      "name": "Long Black",
+      "description": "Similar al americano, pero el orden se invierte: primero el agua caliente, luego el espresso encima, conservando más la crema.",
+      "ingredients": [
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 90,
+          "unitId": "01M1RT1ARZ16YYXK3VFACW3FQZ",
+          "ingredientId": "01M1XMFMZYKTR587J3GA95JX9W"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Servir el agua",
+          "image": "",
+          "text": "Sirve el agua caliente primero en la taza.",
+          "steps": []
+        },
+        {
+          "name": "Extraer el espresso encima",
+          "image": "",
+          "text": "Extrae el espresso directo sobre el agua, sin mezclar de más, para conservar la crema.",
+          "steps": []
+        }
+      ],
+      "tips": [
+        "A diferencia del americano, el orden invertido conserva mejor la crema del espresso."
+      ]
+    },
+    {
+      "id": "01M1XMFMZYQR6G0HXB130X90ZM",
+      "name": "Campesino",
+      "description": "Bebida colombiana tradicional: café con panela, sin leche.",
+      "ingredients": [
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 15,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1J9TXHPNX5G1X9N1X"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Preparar el espresso",
+          "image": "",
+          "text": "Extrae un shot de espresso.",
+          "steps": []
+        },
+        {
+          "name": "Disolver la panela",
+          "image": "",
+          "text": "Vierte el espresso caliente sobre la panela pulverizada y revuelve hasta disolver por completo.",
+          "steps": []
+        }
+      ],
+      "tips": [
+        "Sirve en taza pequeña, se toma bien caliente."
+      ]
+    },
+    {
+      "id": "01M1XMFMZYXK2GR4GHNDAPCK1S",
+      "name": "Arriero",
+      "description": "Café con panela y un toque de leche, típico de las fincas cafeteras.",
+      "ingredients": [
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 15,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1J9TXHPNX5G1X9N1X"
+        },
+        {
+          "quantity": 30,
+          "unitId": "01M1RT1ARZ16YYXK3VFACW3FQZ",
+          "ingredientId": "01M1RT1AS1A09GCW4PWZPM623R"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Preparar el espresso",
+          "image": "",
+          "text": "Extrae un shot de espresso.",
+          "steps": []
+        },
+        {
+          "name": "Disolver la panela",
+          "image": "",
+          "text": "Vierte el espresso sobre la panela pulverizada y disuelve por completo.",
+          "steps": []
+        },
+        {
+          "name": "Agregar la leche",
+          "image": "",
+          "text": "Calienta la leche y agrégala al final, sin necesidad de espumar mucho.",
+          "steps": []
+        }
+      ],
+      "tips": []
+    },
+    {
+      "id": "01M1XMFMZY4BF1BKCH8AGNQ6GY",
+      "name": "Macchiato",
+      "description": "Espresso 'manchado' con una pequeña cantidad de espuma de leche.",
+      "ingredients": [
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 15,
+          "unitId": "01M1RT1ARZ16YYXK3VFACW3FQZ",
+          "ingredientId": "01M1RT1AS1A09GCW4PWZPM623R"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Preparar el espresso",
+          "image": "",
+          "text": "Extrae un shot de espresso directo en la taza de servicio.",
+          "steps": []
+        },
+        {
+          "name": "Manchar con leche",
+          "image": "",
+          "text": "Vaporiza una pequeña cantidad de leche y agrega solo una cucharada de espuma encima.",
+          "steps": []
+        }
+      ],
+      "tips": []
+    },
+    {
+      "id": "01M1XMFMZYZMRWSRJKPETRWFRQ",
+      "name": "Piccolo",
+      "description": "Ristretto con leche vaporizada, servido en una taza pequeña. Más intenso que un flat white por su menor tamaño.",
+      "ingredients": [
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 60,
+          "unitId": "01M1RT1ARZ16YYXK3VFACW3FQZ",
+          "ingredientId": "01M1RT1AS1A09GCW4PWZPM623R"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Preparar el ristretto",
+          "image": "",
+          "text": "Extrae un ristretto (15-20 ml) directo en una taza pequeña.",
+          "steps": []
+        },
+        {
+          "name": "Vaporizar la leche",
+          "image": "",
+          "text": "Vaporiza la leche buscando una textura sedosa, con poca espuma.",
+          "steps": []
+        },
+        {
+          "name": "Servir",
+          "image": "",
+          "text": "Vierte la leche sobre el ristretto.",
+          "steps": []
+        }
+      ],
+      "tips": []
+    },
+    {
+      "id": "01M1XMFMZYBR6VJ3097RXCYMKS",
+      "name": "Flat White",
+      "description": "Doppio con leche vaporizada de microespuma fina, más intenso y con menos espuma que un capuchino.",
+      "ingredients": [
+        {
+          "quantity": 16,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 120,
+          "unitId": "01M1RT1ARZ16YYXK3VFACW3FQZ",
+          "ingredientId": "01M1RT1AS1A09GCW4PWZPM623R"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Preparar el doppio",
+          "image": "",
+          "text": "Extrae un doble shot de espresso directo en la taza de servicio.",
+          "steps": []
+        },
+        {
+          "name": "Vaporizar la leche",
+          "image": "",
+          "text": "Vaporiza la leche buscando una microespuma fina y sedosa, sin capas gruesas de espuma.",
+          "steps": []
+        },
+        {
+          "name": "Servir",
+          "image": "",
+          "text": "Vierte la leche integrándola con el espresso, buscando una superficie lisa.",
+          "steps": []
+        }
+      ],
+      "tips": [
+        "La diferencia con el capuchino está en la textura de la leche: más fina y menos espuma."
+      ]
+    },
+    {
+      "id": "01M1XMFMZYPBP5ZHZJRD01CKCV",
+      "name": "Capuchino",
+      "description": "Espresso con leche vaporizada y una capa generosa de espuma.",
+      "ingredients": [
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 120,
+          "unitId": "01M1RT1ARZ16YYXK3VFACW3FQZ",
+          "ingredientId": "01M1RT1AS1A09GCW4PWZPM623R"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Preparar el espresso",
+          "image": "",
+          "text": "Extrae un shot de espresso directo en la taza de servicio.",
+          "steps": []
+        },
+        {
+          "name": "Vaporizar la leche",
+          "image": "",
+          "text": "Vaporiza la leche hasta lograr una textura sedosa, dividida en tercios: leche líquida, microespuma y espuma firme.",
+          "steps": []
+        },
+        {
+          "name": "Servir",
+          "image": "",
+          "text": "Vierte la leche sobre el espresso, buscando una capa de espuma de 1-2 cm.",
+          "steps": []
+        }
+      ],
+      "tips": [
+        "La proporción clásica es 1/3 espresso, 1/3 leche, 1/3 espuma."
+      ]
+    },
+    {
+      "id": "01M1XMFMZY9TBEK9TQ6YASQH9V",
+      "name": "Capuchino Doble",
+      "description": "Versión de capuchino preparada con doppio en vez de un solo espresso.",
+      "ingredients": [
+        {
+          "quantity": 16,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 180,
+          "unitId": "01M1RT1ARZ16YYXK3VFACW3FQZ",
+          "ingredientId": "01M1RT1AS1A09GCW4PWZPM623R"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Preparar el doppio",
+          "image": "",
+          "text": "Extrae un doble shot de espresso directo en la taza de servicio.",
+          "steps": []
+        },
+        {
+          "name": "Vaporizar la leche",
+          "image": "",
+          "text": "Vaporiza más leche que en un capuchino sencillo, manteniendo la misma proporción en tercios.",
+          "steps": []
+        },
+        {
+          "name": "Servir",
+          "image": "",
+          "text": "Vierte la leche sobre el doppio, buscando una capa de espuma de 1-2 cm.",
+          "steps": []
+        }
+      ],
+      "tips": []
+    },
+    {
+      "id": "01M1XMFMZYXMBD6JHGRASVBAHT",
+      "name": "Mocaccino",
+      "description": "Capuchino con cacao, para quienes disfrutan el toque de chocolate.",
+      "ingredients": [
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 10,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1EGNY07NNGGRVDK2M"
+        },
+        {
+          "quantity": 120,
+          "unitId": "01M1RT1ARZ16YYXK3VFACW3FQZ",
+          "ingredientId": "01M1RT1AS1A09GCW4PWZPM623R"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Preparar el espresso",
+          "image": "",
+          "text": "Extrae un shot de espresso directo en la taza de servicio.",
+          "steps": []
+        },
+        {
+          "name": "Mezclar el cacao",
+          "image": "",
+          "text": "Disuelve el cacao en polvo en el espresso caliente, revolviendo bien.",
+          "steps": []
+        },
+        {
+          "name": "Vaporizar y servir la leche",
+          "image": "",
+          "text": "Vaporiza la leche y viértela sobre la mezcla de espresso y cacao.",
+          "steps": []
+        }
+      ],
+      "tips": []
+    },
+    {
+      "id": "01M1XMFMZY2G92Z30WAH3FF5WK",
+      "name": "Mocaccino Doble",
+      "description": "Versión de mocaccino preparada con doppio en vez de un solo espresso.",
+      "ingredients": [
+        {
+          "quantity": 16,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 20,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1EGNY07NNGGRVDK2M"
+        },
+        {
+          "quantity": 180,
+          "unitId": "01M1RT1ARZ16YYXK3VFACW3FQZ",
+          "ingredientId": "01M1RT1AS1A09GCW4PWZPM623R"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Preparar el doppio",
+          "image": "",
+          "text": "Extrae un doble shot de espresso directo en la taza de servicio.",
+          "steps": []
+        },
+        {
+          "name": "Mezclar el cacao",
+          "image": "",
+          "text": "Disuelve el cacao en polvo en el doppio caliente, revolviendo bien.",
+          "steps": []
+        },
+        {
+          "name": "Vaporizar y servir la leche",
+          "image": "",
+          "text": "Vaporiza más leche que en un mocaccino sencillo y viértela sobre la mezcla.",
+          "steps": []
+        }
+      ],
+      "tips": []
+    },
+    {
+      "id": "01M1XMFMZYNWY67PZAN30JSVMJ",
+      "name": "Bombón",
+      "description": "Espresso con lecherita (leche condensada), dulce y espeso.",
+      "ingredients": [
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 18,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS10ZXDCQJBWGC8YCBQ"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Base de lecherita",
+          "image": "",
+          "text": "Coloca la lecherita en el fondo del vaso.",
+          "steps": []
+        },
+        {
+          "name": "Agregar el espresso",
+          "image": "",
+          "text": "Extrae el espresso directo sobre la lecherita y revuelve hasta disolver.",
+          "steps": []
+        }
+      ],
+      "tips": [
+        "Se sirve tradicionalmente en vaso de vidrio pequeño."
+      ]
+    },
+    {
+      "id": "01M1XMFMZYT8NJK017DK4TE910",
+      "name": "Bombón Borracho",
+      "description": "Bombón con un toque de whiskey, versión para adultos de la bebida clásica.",
+      "ingredients": [
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 18,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS10ZXDCQJBWGC8YCBQ"
+        },
+        {
+          "quantity": 15,
+          "unitId": "01M1RT1ARZ16YYXK3VFACW3FQZ",
+          "ingredientId": "01M1RT1AS2P6YA9HZV8DJVMJ6E"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Base de lecherita",
+          "image": "",
+          "text": "Coloca la lecherita en el fondo del vaso.",
+          "steps": []
+        },
+        {
+          "name": "Agregar el espresso",
+          "image": "",
+          "text": "Extrae el espresso directo sobre la lecherita y revuelve hasta disolver.",
+          "steps": []
+        },
+        {
+          "name": "Agregar el whiskey",
+          "image": "",
+          "text": "Agrega el whiskey y mezcla suavemente.",
+          "steps": []
+        }
+      ],
+      "tips": []
+    },
+    {
+      "id": "01M1XMFMZYQQ7W8N91QF2RXY9Z",
+      "name": "Bombón 3 Capas",
+      "description": "Bombón servido en capas visibles: lecherita, café y espuma de leche, sin mezclar.",
+      "ingredients": [
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 18,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS10ZXDCQJBWGC8YCBQ"
+        },
+        {
+          "quantity": 60,
+          "unitId": "01M1RT1ARZ16YYXK3VFACW3FQZ",
+          "ingredientId": "01M1RT1AS1A09GCW4PWZPM623R"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Base de lecherita",
+          "image": "",
+          "text": "Coloca la lecherita en el fondo de un vaso de vidrio transparente.",
+          "steps": []
+        },
+        {
+          "name": "Agregar el espresso",
+          "image": "",
+          "text": "Vierte el espresso lentamente sobre el dorso de una cuchara para que caiga suave y no se mezcle con la lecherita.",
+          "steps": []
+        },
+        {
+          "name": "Agregar la espuma",
+          "image": "",
+          "text": "Vaporiza la leche y vierte la espuma con cuidado encima, formando la tercera capa.",
+          "steps": []
+        }
+      ],
+      "tips": [
+        "La clave para las capas es verter cada líquido despacio, sobre el dorso de una cuchara."
+      ]
+    },
+    {
+      "id": "01M1XMFMZYGYEWKFSR2GRVCA70",
+      "name": "Café Irlandés",
+      "description": "Café caliente con whiskey y azúcar, coronado con una capa de crema de leche sin batir.",
+      "ingredients": [
+        {
+          "quantity": 15,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 45,
+          "unitId": "01M1RT1ARZ16YYXK3VFACW3FQZ",
+          "ingredientId": "01M1RT1AS2P6YA9HZV8DJVMJ6E"
+        },
+        {
+          "quantity": 1,
+          "unitId": "01M1RT1ARZGAFZE1TCBGHEW7CM",
+          "ingredientId": "01M1RT1AS1R34WQY5EYRZFSHZX"
+        },
+        {
+          "quantity": 30,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS25T9NEEKEYM917N8G"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Preparar el café",
+          "image": "",
+          "text": "Prepara el café caliente (filtrado o espresso alargado) y viértelo en una copa resistente al calor.",
+          "steps": []
+        },
+        {
+          "name": "Endulzar",
+          "image": "",
+          "text": "Disuelve el azúcar morena en el café caliente.",
+          "steps": []
+        },
+        {
+          "name": "Agregar el whiskey",
+          "image": "",
+          "text": "Agrega el whiskey y mezcla.",
+          "steps": []
+        },
+        {
+          "name": "Coronar con crema",
+          "image": "",
+          "text": "Vierte la crema de leche despacio sobre el dorso de una cuchara, para que flote sin mezclarse.",
+          "steps": []
+        }
+      ],
+      "tips": [
+        "La crema debe quedar flotando encima, no mezclada; por eso se vierte despacio sobre una cuchara."
+      ]
+    },
+    {
+      "id": "01M1XMFMZYSTKGA1EGZMHGQ9HF",
+      "name": "Limonada de Café",
+      "description": "Bebida fría que combina limonada clásica con un shot de espresso.",
+      "ingredients": [
+        {
+          "quantity": 1,
+          "unitId": "01M1RT1AS0KA5PZZ4AMC8B2N26",
+          "ingredientId": "01M1XMFMZY17WQ75XDDP35R4RC"
+        },
+        {
+          "quantity": 3,
+          "unitId": "01M1RT1ARZS7Z7YRJW2537YPEH",
+          "ingredientId": "01M1RT1AS1ZY94KV8H82HM664Y"
+        },
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 200,
+          "unitId": "01M1RT1ARZ16YYXK3VFACW3FQZ",
+          "ingredientId": "01M1XMFMZYKTR587J3GA95JX9W"
+        },
+        {
+          "quantity": 100,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1XMFMZY8D36J6GEZBPMR9T8"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Exprimir el limón",
+          "image": "",
+          "text": "Exprime el limón tahití, reservando una rodaja para decorar.",
+          "steps": []
+        },
+        {
+          "name": "Preparar la limonada",
+          "image": "",
+          "text": "Mezcla el jugo de limón con el azúcar y el agua hasta disolver bien.",
+          "steps": []
+        },
+        {
+          "name": "Preparar el espresso",
+          "image": "",
+          "text": "Extrae un shot de espresso y déjalo enfriar un poco.",
+          "steps": []
+        },
+        {
+          "name": "Combinar y servir",
+          "image": "",
+          "text": "Sirve el hielo en un vaso, agrega la limonada y el espresso encima. Decora con la rodaja de limón reservada.",
+          "steps": []
+        }
+      ],
+      "tips": []
+    },
+    {
+      "id": "01M1XMFMZY9T6KNXFAVX2Z1HXN",
+      "name": "Frappé de Café",
+      "description": "Bebida fría y espumosa de café, licuada con hielo y leche.",
+      "ingredients": [
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 150,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1XMFMZY8D36J6GEZBPMR9T8"
+        },
+        {
+          "quantity": 100,
+          "unitId": "01M1RT1ARZ16YYXK3VFACW3FQZ",
+          "ingredientId": "01M1RT1AS1A09GCW4PWZPM623R"
+        },
+        {
+          "quantity": 1,
+          "unitId": "01M1RT1ARZS7Z7YRJW2537YPEH",
+          "ingredientId": "01M1RT1AS1ZY94KV8H82HM664Y"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Preparar el espresso",
+          "image": "",
+          "text": "Extrae un shot de espresso y déjalo enfriar.",
+          "steps": []
+        },
+        {
+          "name": "Licuar",
+          "image": "",
+          "text": "Licúa el espresso con el hielo, la leche y el azúcar hasta lograr una textura espumosa y uniforme.",
+          "steps": []
+        },
+        {
+          "name": "Servir",
+          "image": "",
+          "text": "Sirve de inmediato en un vaso alto.",
+          "steps": []
+        }
+      ],
+      "tips": []
+    },
+    {
+      "id": "01M1XMFMZZHJXDGTPRW723WBYF",
+      "name": "Affogato (café con helado)",
+      "description": "Postre italiano clásico: una bola de helado 'ahogada' en un shot de espresso caliente recién extraído.",
+      "ingredients": [
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        },
+        {
+          "quantity": 1,
+          "unitId": "01M1RT1AS0KA5PZZ4AMC8B2N26",
+          "ingredientId": "01M1RT1AS2K0WDZZXD77GG24NJ"
+        }
+      ],
+      "steps": [
+        {
+          "name": "Servir el helado",
+          "image": "",
+          "text": "Coloca una bola de helado de vainilla en una copa o vaso pequeño.",
+          "steps": []
+        },
+        {
+          "name": "Extraer el espresso",
+          "image": "",
+          "text": "Extrae un shot de espresso bien caliente.",
+          "steps": []
+        },
+        {
+          "name": "Servir de inmediato",
+          "image": "",
+          "text": "Vierte el espresso caliente directo sobre el helado justo antes de servir, para que se disfrute mientras se derrite.",
+          "steps": []
+        }
+      ],
+      "tips": [
+        "Se sirve y se come de inmediato, antes de que el helado se derrita por completo."
       ]
     }
   ]

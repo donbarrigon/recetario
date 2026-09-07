@@ -1,0 +1,231 @@
+{
+  "measurement_units": [
+    { "id": "01M1RT1ARY24H3ETX841EAJ1XJ", "iconId": 0, "symbol": "g", "name": "Gramo", "isExact": true, "typeUnit": "float", "group": "peso", "scale": 1.0, "description": "Unidad base de peso, ideal para dosis exactas." },
+    { "id": "01M1RT1ARZGAFZE1TCBGHEW7CM", "iconId": 9, "symbol": "cdta", "name": "Cucharadita", "isExact": false, "typeUnit": "float", "group": "peso", "scale": 5.0, "description": "Equivalente aproximado a 5 g." },
+    { "id": "01M1RT1ARZS7Z7YRJW2537YPEH", "iconId": 9, "symbol": "cda", "name": "Cucharada", "isExact": false, "typeUnit": "float", "group": "peso", "scale": 11.0, "description": "Equivalente aproximado a 11 g." },
+    { "id": "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "iconId": 0, "symbol": "lb", "name": "Libra", "isExact": true, "typeUnit": "float", "group": "peso", "scale": 500.0, "description": "Equivalente aproximado a 500 g (medida comercial usual)." },
+    { "id": "01M1RT1ARZ1YYPCJ262F1K4SGT", "iconId": 0, "symbol": "kg", "name": "Kilogramo", "isExact": true, "typeUnit": "float", "group": "peso", "scale": 1000.0, "description": "Equivalente a 1000 g." },
+    { "id": "01M1RT1ARZC22CMHPB7TJ1RPEB", "iconId": 6, "symbol": "pizca", "name": "Pizca", "isExact": false, "typeUnit": "fraction", "group": "porcion", "scale": 0.3, "description": "Cantidad muy pequeña, a ojo, sin gramera." },
+    { "id": "01M1RT1ARZ16YYXK3VFACW3FQZ", "iconId": 1, "symbol": "ml", "name": "Mililitro", "isExact": true, "typeUnit": "float", "group": "liquidos", "scale": 1.0, "description": "Unidad base de volumen." },
+    { "id": "01M1RT1ARZH739KD15JS9EF8PX", "iconId": 1, "symbol": "cl", "name": "Centilitro", "isExact": true, "typeUnit": "float", "group": "liquidos", "scale": 10.0, "description": "Equivalente a 10 ml." },
+    { "id": "01M1RT1ARZ4NYRWKB0WG5GZC7V", "iconId": 15, "symbol": "oz", "name": "Onza", "isExact": true, "typeUnit": "float", "group": "liquidos", "scale": 30.0, "description": "Onza líquida, equivalente aproximado a 30 ml." },
+    { "id": "01M1RT1ARZBQAFV46M417B83HX", "iconId": 18, "symbol": "tza", "name": "Taza", "isExact": false, "typeUnit": "float", "group": "liquidos", "scale": 240.0, "description": "Medida aproximada, equivalente a unos 240 ml." },
+    { "id": "01M1RT1AS0QB23806KPDHVGQFD", "iconId": 1, "symbol": "l", "name": "Litro", "isExact": true, "typeUnit": "float", "group": "liquidos", "scale": 1000.0, "description": "Equivalente a 1000 ml." },
+    { "id": "01M1RT1AS0KA5PZZ4AMC8B2N26", "iconId": 7, "symbol": "u", "name": "Unidad", "isExact": true, "typeUnit": "integer", "group": "unidad", "scale": 1.0, "description": "Conteo de piezas individuales." },
+    { "id": "01M1RT1AS084FRXECJWB2Y5H9Y", "iconId": 7, "symbol": "dec", "name": "Decena", "isExact": true, "typeUnit": "integer", "group": "unidad", "scale": 10.0, "description": "Equivalente a 10 unidades." },
+    { "id": "01M1RT1AS0DRV5CN4DR357KBWT", "iconId": 7, "symbol": "doc", "name": "Docena", "isExact": true, "typeUnit": "integer", "group": "unidad", "scale": 12.0, "description": "Equivalente a 12 unidades." },
+    { "id": "01M1RT1AS03DJGE0TBHSZCWFM4", "iconId": 7, "symbol": "par", "name": "Par", "isExact": true, "typeUnit": "integer", "group": "unidad", "scale": 2.0, "description": "Equivalente a 2 unidades." },
+    { "id": "01M1RT1AS0KHS905HGHQM8ZF4Y", "iconId": 5, "symbol": "cm", "name": "Centímetro", "isExact": true, "typeUnit": "float", "group": "longitud", "scale": 1.0, "description": "Unidad base de longitud, la más usada en cocina." },
+    { "id": "01M1RT1AS0446ZR56JP65JTXN5", "iconId": 5, "symbol": "mm", "name": "Milímetro", "isExact": true, "typeUnit": "float", "group": "longitud", "scale": 0.1, "description": "Equivalente a una décima de centímetro." },
+    { "id": "01M1RT1AS02HMZ5CFAR402P88D", "iconId": 5, "symbol": "m", "name": "Metro", "isExact": true, "typeUnit": "float", "group": "longitud", "scale": 100.0, "description": "Equivalente a 100 centímetros." },
+    { "id": "01M1RT1AS0R7TRM0Q54J12G2YA", "iconId": 16, "symbol": "dosis", "name": "Dosis", "isExact": true, "typeUnit": "integer", "group": "café", "scale": 1.0, "description": "Una dosis equivale a un shot de espresso (aprox. 7-9 g de café molido)." },
+    { "id": "01M1RT1AS01338KA901V98T81Y", "iconId": 8, "symbol": "chorrito", "name": "Chorrito (para decorar)", "isExact": false, "typeUnit": "fraction", "group": "decoracion", "scale": 1.0, "description": "Cantidad libre, al gusto, para decorar o dar el toque final." }
+  ],
+  "recipe_ingredients": [
+    {
+      "id": "01M1RT1AS1PZVMMSME09K8BDKV",
+      "iconId": 29,
+      "name": "Arequipe",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZGAFZE1TCBGHEW7CM"],
+      "description": "Dulce de leche espeso, usado en postres y bebidas de café."
+    },
+    {
+      "id": "01M1RT1AS10ZXDCQJBWGC8YCBQ",
+      "iconId": 8,
+      "name": "Lecherita (leche condensada)",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZGAFZE1TCBGHEW7CM"],
+      "description": "Leche condensada azucarada, base de bebidas como el bombón."
+    },
+    {
+      "id": "01M1RT1AS1J9TXHPNX5G1X9N1X",
+      "iconId": 6,
+      "name": "Panela pulverizada",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "01M1RT1ARZ1YYPCJ262F1K4SGT"],
+      "description": "Panela molida, se disuelve más rápido que el bloque entero."
+    },
+    {
+      "id": "01M1RT1AS1R34WQY5EYRZFSHZX",
+      "iconId": 6,
+      "name": "Azúcar morena",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "01M1RT1ARZ1YYPCJ262F1K4SGT"],
+      "description": "Azúcar sin refinar por completo, de sabor más intenso."
+    },
+    {
+      "id": "01M1RT1AS1ZY94KV8H82HM664Y",
+      "iconId": 6,
+      "name": "Azúcar refinada",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "01M1RT1ARZ1YYPCJ262F1K4SGT"],
+      "description": "Azúcar blanca de mesa, de grano fino."
+    },
+    {
+      "id": "01M1RT1AS1ADZFP75TP0W279FQ",
+      "iconId": 8,
+      "name": "Azúcar pulverizada",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "01M1RT1ARZ1YYPCJ262F1K4SGT"],
+      "description": "Azúcar glas, molida muy fina, usada para tortas y decoración."
+    },
+    {
+      "id": "01M1RT1AS12M198ETFNCKHQYQB",
+      "iconId": 1,
+      "name": "Miel",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZGAFZE1TCBGHEW7CM"],
+      "description": "Miel de abejas, endulzante natural líquido."
+    },
+    {
+      "id": "01M1RT1AS1M9V4JXSVHQAH3BRZ",
+      "iconId": 18,
+      "name": "Café tostado (en grano)",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ"],
+      "description": "Café tostado entero, para moler al momento de preparar."
+    },
+    {
+      "id": "01M1RT1AS1K5V96K5DF97RZDC9",
+      "iconId": 18,
+      "name": "Café tostado y molido",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZGAFZE1TCBGHEW7CM"],
+      "description": "Café ya molido, listo para preparar en espresso, filtrado u otros métodos."
+    },
+    {
+      "id": "01M1RT1AS1A09GCW4PWZPM623R",
+      "iconId": 1,
+      "name": "Leche",
+      "measureUnitAvailableIds": ["01M1RT1ARZ16YYXK3VFACW3FQZ", "01M1RT1ARZH739KD15JS9EF8PX", "01M1RT1ARZ4NYRWKB0WG5GZC7V", "01M1RT1ARZBQAFV46M417B83HX", "01M1RT1AS0QB23806KPDHVGQFD"],
+      "description": "Leche líquida entera o deslactosada, para vaporizar o mezclar."
+    },
+    {
+      "id": "01M1RT1AS1FZ582F5AFZH1XJZ9",
+      "iconId": 6,
+      "name": "Leche en polvo",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZGAFZE1TCBGHEW7CM"],
+      "description": "Leche deshidratada, se disuelve en agua o se usa directo en mezclas."
+    },
+    {
+      "id": "01M1RT1AS1EGNY07NNGGRVDK2M",
+      "iconId": 6,
+      "name": "Cacao en polvo",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "01M1RT1ARZ1YYPCJ262F1K4SGT"],
+      "description": "Cacao puro sin azúcar, para mocaccinos y repostería."
+    },
+    {
+      "id": "01M1RT1AS13GKXXT0V1YD18WJ8",
+      "iconId": 6,
+      "name": "Canela en polvo",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "01M1RT1ARZ1YYPCJ262F1K4SGT", "01M1RT1ARZC22CMHPB7TJ1RPEB"],
+      "description": "Canela molida, especia clásica para café y postres."
+    },
+    {
+      "id": "01M1RT1AS1A7HQAM1S82PTWQYY",
+      "iconId": 26,
+      "name": "Canela en astillas",
+      "measureUnitAvailableIds": ["01M1RT1AS0KA5PZZ4AMC8B2N26", "01M1RT1AS084FRXECJWB2Y5H9Y", "01M1RT1AS0DRV5CN4DR357KBWT", "01M1RT1AS03DJGE0TBHSZCWFM4"],
+      "description": "Canela entera en rama, para infusionar leche o bebidas calientes."
+    },
+    {
+      "id": "01M1RT1AS1954YPZQS224KA1SF",
+      "iconId": 6,
+      "name": "Nuez moscada en polvo",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "01M1RT1ARZ1YYPCJ262F1K4SGT", "01M1RT1ARZC22CMHPB7TJ1RPEB"],
+      "description": "Especia aromática usada en chocolate caliente y bebidas navideñas."
+    },
+    {
+      "id": "01M1RT1AS1AKSAYG5P51707D20",
+      "iconId": 26,
+      "name": "Clavos de olor",
+      "measureUnitAvailableIds": ["01M1RT1AS0KA5PZZ4AMC8B2N26", "01M1RT1AS084FRXECJWB2Y5H9Y", "01M1RT1AS0DRV5CN4DR357KBWT", "01M1RT1AS03DJGE0TBHSZCWFM4"],
+      "description": "Especia entera, usada para infusionar café y bebidas especiadas tipo chai."
+    },
+    {
+      "id": "01M1RT1AS149NYFWHEQZTN2065",
+      "iconId": 26,
+      "name": "Cardamomo",
+      "measureUnitAvailableIds": ["01M1RT1AS0KA5PZZ4AMC8B2N26", "01M1RT1AS084FRXECJWB2Y5H9Y", "01M1RT1AS0DRV5CN4DR357KBWT", "01M1RT1AS03DJGE0TBHSZCWFM4"],
+      "description": "Especia entera, clásica en el café árabe y bebidas tipo chai."
+    },
+    {
+      "id": "01M1RT1AS11NXR0DRQ6H4EFK93",
+      "iconId": 8,
+      "name": "Crema de chocolate",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1AS01338KA901V98T81Y"],
+      "description": "Crema untable de chocolate, usada como saborizante o para decorar."
+    },
+    {
+      "id": "01M1RT1AS12WKNEMP7XM6RD7T4",
+      "iconId": 8,
+      "name": "Crema de maní",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZGAFZE1TCBGHEW7CM"],
+      "description": "Crema untable de maní, para bebidas con sabor a maní/chocolate."
+    },
+    {
+      "id": "01M1RT1AS25T9NEEKEYM917N8G",
+      "iconId": 1,
+      "name": "Crema de leche",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1ARZGAFZE1TCBGHEW7CM", "01M1RT1ARZS7Z7YRJW2537YPEH", "01M1RT1ARZ7C3SX8GJWY0YVDQJ", "01M1RT1ARZ1YYPCJ262F1K4SGT"],
+      "description": "Crema de leche espesa, para dar cuerpo o decorar bebidas frías."
+    },
+    {
+      "id": "01M1RT1AS2K0WDZZXD77GG24NJ",
+      "iconId": 13,
+      "name": "Helado",
+      "measureUnitAvailableIds": ["01M1RT1ARY24H3ETX841EAJ1XJ", "01M1RT1AS0KA5PZZ4AMC8B2N26"],
+      "description": "Helado de vainilla u otro sabor. Se recomienda medir por gramo cuando necesites precisión, o por unidad para una 'bola' estándar de heladería."
+    },
+    {
+      "id": "01M1RT1AS2KDF456Q8W4CXR8TM",
+      "iconId": 27,
+      "name": "Ron",
+      "measureUnitAvailableIds": ["01M1RT1ARZ16YYXK3VFACW3FQZ", "01M1RT1ARZH739KD15JS9EF8PX", "01M1RT1ARZ4NYRWKB0WG5GZC7V"],
+      "description": "Licor destilado de caña, usado en cafés con licor."
+    },
+    {
+      "id": "01M1RT1AS2KF3ZY0BR9PYH32KR",
+      "iconId": 27,
+      "name": "Aguardiente",
+      "measureUnitAvailableIds": ["01M1RT1ARZ16YYXK3VFACW3FQZ", "01M1RT1ARZH739KD15JS9EF8PX", "01M1RT1ARZ4NYRWKB0WG5GZC7V"],
+      "description": "Licor anisado colombiano, usado en algunas bebidas de café."
+    },
+    {
+      "id": "01M1RT1AS2P6YA9HZV8DJVMJ6E",
+      "iconId": 27,
+      "name": "Whiskey",
+      "measureUnitAvailableIds": ["01M1RT1ARZ16YYXK3VFACW3FQZ", "01M1RT1ARZH739KD15JS9EF8PX", "01M1RT1ARZ4NYRWKB0WG5GZC7V"],
+      "description": "Licor destilado de granos, usado en variantes de café irlandés."
+    },
+    {
+      "id": "01M1RT1AS2HESD4XYV41TJ6Z4V",
+      "iconId": 27,
+      "name": "Brandy",
+      "measureUnitAvailableIds": ["01M1RT1ARZ16YYXK3VFACW3FQZ", "01M1RT1ARZH739KD15JS9EF8PX", "01M1RT1ARZ4NYRWKB0WG5GZC7V"],
+      "description": "Licor destilado de uva, tradicional en el carajillo."
+    },
+    {
+      "id": "01M1RT1AS24197RWFJ8ZGN0EV5",
+      "iconId": 27,
+      "name": "Licor de café",
+      "measureUnitAvailableIds": ["01M1RT1ARZ16YYXK3VFACW3FQZ", "01M1RT1ARZH739KD15JS9EF8PX", "01M1RT1ARZ4NYRWKB0WG5GZC7V"],
+      "description": "Licor dulce con sabor a café, tipo Kahlúa."
+    }
+  ],
+  "recipes": [
+    {
+      "id": "01M1RT1AS2KQK0GSFZ85YQCW4W",
+      "name": "Espresso",
+      "description": "Shot sencillo de espresso, la base de casi todas las demás preparaciones.",
+      "ingredients": [
+        {
+          "quantity": 8,
+          "unitId": "01M1RT1ARY24H3ETX841EAJ1XJ",
+          "ingredientId": "01M1RT1AS1K5V96K5DF97RZDC9"
+        }
+      ],
+      "steps": [
+        { "name": "Moler", "image": "", "text": "Muele el café a una finura fina, similar a la sal de mesa.", "steps": [] },
+        { "name": "Dosificar y tampear", "image": "", "text": "Coloca el café molido en el portafiltro y compacta parejo con el tamper.", "steps": [] },
+        { "name": "Extraer", "image": "", "text": "Extrae entre 25 y 30 segundos hasta obtener 30 ml de espresso.", "steps": [] }
+      ],
+      "tips": [
+        "Si la extracción es muy rápida, muele más fino.",
+        "Si es muy lenta, muele más grueso."
+      ]
+    }
+  ]
+}
